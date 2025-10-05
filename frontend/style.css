@@ -106,10 +106,9 @@ header.shrink .logo span {
 .hero {
     position: relative;
     display: flex;
-    flex-direction: column; /* stack content on smaller screens */
-    justify-content: center;
-    align-items: flex-start;
-    padding: 100px 40px; /* generous spacing */
+    justify-content: flex-end; /* align content to right */
+    align-items: center;
+    padding: 100px 60px; /* more right padding */
     min-height: 80vh;
     background: url('assets/images/hero_banner.png') center/cover no-repeat;
     color: #fff; /* white text for contrast */
@@ -125,8 +124,9 @@ header.shrink .logo span {
     z-index: 1;
 }
 .hero-content {
-    max-width: 600px;
-    z-index: 2; /* make sure it sits above background */
+    max-width: 500px; /* keep content narrow for elegance */
+    text-align: right; /* align text to the right */
+    z-index: 2;
 }
 .hero-content h1 {
     font-size: 3.5rem;
@@ -338,8 +338,13 @@ footer {
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;
+        justify-content: center;
+        align-items: center; /* center for tablet */
         text-align: center;
-        padding: 70px 20px;
+        padding: 80px 20px;
+    }
+    .hero-content {
+        text-align: center; /* center text on mobile */
     }
     .hero-content h1 {
         font-size: 2.5rem;
@@ -347,9 +352,6 @@ footer {
     .hero-content p {
         font-size: 1rem;
     }
-    /*.hero-content, .hero-image {
-        margin: 0;
-    }*/
     .nav-links {
         display: none; /* Hide nav on mobile */
         flex-direction: column;
