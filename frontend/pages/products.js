@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Loop through each button
   buttons.forEach(button => {
     
-    // Add a click event listener to each button
+    // Adding a click event listener to each button
     button.addEventListener("click", () => {
       
-      // For now, just show an alert (placeholder for future cart functionality)
+      // Show an alert (placeholder for future cart functionality)
       alert("Added to cart!");
     });
   });
