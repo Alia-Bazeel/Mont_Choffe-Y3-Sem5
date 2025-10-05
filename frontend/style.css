@@ -101,22 +101,43 @@ header.shrink .logo span {
 
 /* HERO SECTION */
 .hero {
-    display: flex;
+    /*display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 50px 20px;
-    background-color: #F5F0E1;
+    background-color: #F5F0E1;*/
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 100px 50px; /* Increase padding for overlay space */
+    min-height: 80vh; /* Make it tall enough */
+    background: url('assets/images/hero_banner.png') center/cover no-repeat; /* Image as background */
+    color: white; /* Text overlay */
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7); /* Makes text readable */
+}
+/* Overlay effect (optional, more luxurious) */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.35); /* dark overlay */
+    z-index: 1;
 }
 .hero-content {
-    flex: 1;
+    /*flex: 1;
     min-width: 300px;
-    margin-right: 20px;
+    margin-right: 20px;*/
+    position: relative; /* keep text above overlay */
+    z-index: 2;
+    max-width: 600px;
 }
 .hero-content h1 {
-    font-family: 'Josefin Sans', sans-serif;
+    /*font-family: 'Josefin Sans', sans-serif;
+    color: #4B2E2E;*/
     font-size: 3rem;
-    color: #4B2E2E;
     margin-bottom: 20px;
 }
 .hero-content p {
@@ -136,14 +157,14 @@ header.shrink .logo span {
     background-color: #FF6F61;
 }
 
-.hero-image {
+/*.hero-image {
     flex: 1;
     min-width: 300px;
 }
 .hero-image img {
     width: 100%;
     border-radius: 10px;
-}
+}*/
 
 /* PREMIUM PRODUCTS SECTION */
 .products {
@@ -321,11 +342,17 @@ footer {
     .hero {
         flex-direction: column;
         text-align: center;
+        padding: 70px 20px;
     }
-    .hero-content, .hero-image {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    /*.hero-content, .hero-image {
         margin: 0;
-    }
-
+    }*/
     .nav-links {
         display: none; /* Hide nav on mobile */
         flex-direction: column;
