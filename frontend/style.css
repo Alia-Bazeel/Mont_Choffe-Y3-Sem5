@@ -184,6 +184,7 @@ header.shrink .logo span {
 .product-card p {
     font-weight: bold;
     margin-bottom: 15px;
+    direction: ltr; /* Ensures numbers are left-to-right with currency */
 }
 .product-card button {
     padding: 10px 20px;
