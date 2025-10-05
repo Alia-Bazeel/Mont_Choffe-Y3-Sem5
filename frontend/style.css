@@ -212,11 +212,32 @@ header.shrink .logo span {
     text-align: center;
 }
 
-/* View all products button */
+/* VIEW ALL PRODUCTS BUTTON */
 .view-all {
     text-align: center;
     margin-top: 20px;
 }
+
+.view-all .btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #D2691E; /* Caramel CTA color */
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* smooth hover transition */
+    text-decoration: none; /* remove underline */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+.view-all .btn:hover {
+    background-color: #FF6F61; /* Accent hover color */
+    transform: translateY(-3px); /* slight lift */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2); /* enhanced shadow on hover */
+} /* box-shadow -> makes the button pop like the product cards */
 
 /* ABOUT US SECTION */
 .about {
@@ -327,6 +348,11 @@ footer {
     .logo span {
         font-size: 1.2rem;
     }
+
+    .view-all .btn {
+        padding: 8px 20px;   /* slightly smaller padding */
+        font-size: 0.95rem;  /* slightly smaller font */
+    }
 }
 
 @media (max-width: 480px) {
@@ -350,5 +376,10 @@ footer {
 
     .hero-image img {
         border-radius: 8px;
+    }
+
+    .view-all .btn {
+        padding: 6px 15px;   /* very small screen padding */
+        font-size: 0.9rem;   /* smaller font for readability */
     }
 }
