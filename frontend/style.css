@@ -1,4 +1,4 @@
-/* 1. GLOBAL STYLING */
+/* GLOBAL STYLING */
 * {
     margin: 0;
     padding: 0;
@@ -12,19 +12,19 @@ body {
     line-height: 1.6;
 }
 
-/* Anchor tags default */
+/* Links default style */
 a {
     text-decoration: none;
     color: inherit;
 }
 
-/* Buttons default */
+/* Buttons default style */
 button {
     cursor: pointer;
     font-family: 'Josefin Sans', sans-serif;
 }
 
-/* 2. NAVIGATION / HEADER */  /* Default header */
+/* HEADER - NAVIGATION */
 header {
     background-color: #4B2E2E; /* Dark chocolate brown */
     color: white;
@@ -32,22 +32,22 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: all 0.3s ease; /* smooth shrink effect */
-}
-/* Shrunk header on scroll */
-header.shrink {
-    padding: 5px 20px;
-    background-color: #3A2323; /* slightly darker for effect */
+    transition: all 0.3s ease; /* Smooth shrinking */
 }
 
-/* Logo shrink effect */
+/* Shrink effect on scroll */
+header.shrink {
+    padding: 5px 20px;
+    background-color: #3A2323;
+}
+
 header.shrink .logo img {
-    width: 150px; /* from 200px → 150px */
+    width: 150px;
     transition: width 0.3s ease;
 }
 
 header.shrink .logo span {
-    font-size: 1.2rem; /* smaller text */
+    font-size: 1.2rem;
     transition: font-size 0.3s ease;
 }
 
@@ -58,7 +58,7 @@ header.shrink .logo span {
     align-items: center;
 }
 
-/* Logo styling */
+/* Logo */
 .logo img {
     width: 200px;
     height: auto;
@@ -82,7 +82,7 @@ header.shrink .logo span {
     transition: 0.3s;
 }
 .nav-links li a:hover {
-    color: #FF6F61; /* Accent color */
+    color: #FF6F61; /* Accent hover color */
 }
 
 /* Hamburger menu for mobile */
@@ -99,14 +99,14 @@ header.shrink .logo span {
     background-color: white;
 }
 
-/* 3. HERO SECTION */
+/* HERO SECTION */
 .hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 50px 20px;
-    background-color: #F5F0E1; 
+    background-color: #F5F0E1;
 }
 .hero-content {
     flex: 1;
@@ -125,7 +125,7 @@ header.shrink .logo span {
 }
 .cta-btn {
     padding: 10px 25px;
-    background-color: #D2691E; /* Caramel CTA */
+    background-color: #D2691E;
     color: white;
     border: none;
     border-radius: 5px;
@@ -136,7 +136,6 @@ header.shrink .logo span {
     background-color: #FF6F61;
 }
 
-/* Hero image */
 .hero-image {
     flex: 1;
     min-width: 300px;
@@ -146,7 +145,7 @@ header.shrink .logo span {
     border-radius: 10px;
 }
 
-/* 4. PREMIUM PRODUCTS SECTION */
+/* PREMIUM PRODUCTS SECTION */
 .products {
     padding: 50px 20px;
     text-align: center;
@@ -202,23 +201,24 @@ header.shrink .logo span {
     box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
-/* Hero section for products page */
+/* Hero banner for products page */
 .hero-products {
-  background: url('../assets/images/products_banner.jpg') center/cover no-repeat;
-  height: 40vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
+    background: url('../assets/images/products_banner.jpg') center/cover no-repeat;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
 }
 
+/* View all products button */
 .view-all {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* 5. ABOUT US SECTION */
+/* ABOUT US SECTION */
 .about {
     padding: 50px 20px;
     background-color: #fff;
@@ -237,7 +237,7 @@ header.shrink .logo span {
     line-height: 1.8;
 }
 
-/* 6. CONTACT SECTION */
+/* CONTACT SECTION */
 .contact {
     padding: 50px 20px;
     text-align: center;
@@ -286,7 +286,7 @@ header.shrink .logo span {
     transform: scale(1.1);
 }
 
-/* 7. FOOTER */
+/* FOOTER */
 footer {
     background-color: #4B2E2E;
     color: white;
@@ -294,7 +294,7 @@ footer {
     padding: 20px;
 }
 
-/* 8. RESPONSIVE DESIGN */
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;
@@ -305,7 +305,7 @@ footer {
     }
 
     .nav-links {
-        display: none; /* Hide desktop nav for mobile */
+        display: none; /* Hide nav on mobile */
         flex-direction: column;
         background-color: #4B2E2E;
         position: absolute;
@@ -321,36 +321,34 @@ footer {
     }
 
     .logo img {
-        width: 120px;  /* smaller logo for tablets/mobiles */
+        width: 120px;
     }
     
     .logo span {
-        font-size: 1.2rem; /* adjust text slightly */
+        font-size: 1.2rem;
     }
 }
 
-/* Extra breakpoint for very small mobile devices */
 @media (max-width: 480px) {
     .logo img {
-        width: 90px;  /* smaller logo for very small screens */
+        width: 90px;
     }
     .logo span {
-        font-size: 1rem; /* adjust text for readability */
+        font-size: 1rem;
     }
 
-    /* Hero adjustments */
     .hero-content h1 {
-        font-size: 2rem;  /* shrink heading */
+        font-size: 2rem;
     }
     .hero-content p {
-        font-size: 1rem;  /* smaller paragraph text */
+        font-size: 1rem;
     }
     .cta-btn {
-        padding: 8px 18px;  /* slightly smaller button */
+        padding: 8px 18px;
         font-size: 0.9rem;
     }
 
     .hero-image img {
-        border-radius: 8px; /* softer rounding for small screen */
+        border-radius: 8px;
     }
 }
