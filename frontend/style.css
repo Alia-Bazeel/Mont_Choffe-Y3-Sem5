@@ -1,11 +1,3 @@
-/* ----------------------------------------------------------
-    Mont Choffe - style.css
-    Frontend Styling for Mont Choffe Website
-    Author: Alia Bazeel
-    Year: 2025
-    Comments included for clarity
------------------------------------------------------------ */
-
 /* 1. GLOBAL STYLING */
 * {
     margin: 0;
@@ -337,7 +329,7 @@ footer {
     }
 }
 
-/* Extra breakpoint: very small mobile devices */
+/* Extra breakpoint for very small mobile devices */
 @media (max-width: 480px) {
     .logo img {
         width: 90px;  /* smaller logo for very small screens */
