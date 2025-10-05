@@ -1,11 +1,3 @@
-/* ----------------------------------------------------------
-    Mont Choffe - script.js
-    Frontend Interactivity for Mont Choffe Website
-    Author: Alia Bazeel
-    Year: 2025
-    Comments included for clarity
------------------------------------------------------------ */
-
 /* ------------------------------
     1. HAMBURGER MENU TOGGLE
 ------------------------------ */
@@ -16,7 +8,7 @@ const navLinks = document.querySelector('.nav-links');
 
 // Toggle mobile menu when hamburger is clicked
 hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('nav-active'); // Adds/removes class to show menu
+    navLinks.classList.toggle('nav-active'); // Shows or hides the menu
     hamburger.classList.toggle('toggle');    // Animate hamburger icon
 });
 
@@ -32,7 +24,7 @@ cartButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Temporary animation effect on click
         button.textContent = 'Added!';
-        button.style.backgroundColor = '#FF6F61'; // Change to accent color
+        button.style.backgroundColor = '#FF6F61'; // Accent color
         button.style.color = '#fff';
         
         // Revert back after 1.5 seconds
@@ -67,16 +59,15 @@ links.forEach(link => {
 });
 
 /* ------------------------------
-    4. SHRINK HEADER WHILING SCROLLING
+    4. SHRINK HEADER WHILE SCROLLING
 ------------------------------ */
 
 // Shrink header on scroll
 window.addEventListener("scroll", function() {
     const header = document.querySelector("header");
     if (window.scrollY > 50) {
-        header.classList.add("shrink");
+        header.classList.add("shrink"); // Apply shrink class
     } else {
-        header.classList.remove("shrink");
+        header.classList.remove("shrink"); // Remove shrink class
     }
 });
-
