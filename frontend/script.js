@@ -9,7 +9,7 @@ const mobileMenu = document.querySelector('.mobile-menu');
 
 // Toggle menus when hamburger is clicked
 hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('nav-active');   // For desktop nav (optional)
+    navLinks.classList.toggle('nav-active');   // For desktop nav
     mobileMenu.classList.toggle('active');     // For mobile menu
     hamburger.classList.toggle('toggle');      // Animate hamburger icon
 });
