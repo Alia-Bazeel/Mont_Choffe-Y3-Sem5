@@ -73,6 +73,15 @@ header.shrink .logo span {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+.brand-name {
+    font-family: 'Josefin Sans', sans-serif; /* matches your site typography */
+    font-size: 1.8rem; 
+    font-weight: bold;
+    color: #FF6F61; /* your brand accent color */
+    letter-spacing: 2px; /* spaced-out letters */
+    text-transform: uppercase; /* all caps for luxury feel */
+}
+
 /* Nav links */
 .nav-links {
     list-style: none;
