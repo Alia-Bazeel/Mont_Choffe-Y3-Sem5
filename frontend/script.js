@@ -2,14 +2,16 @@
     1. HAMBURGER MENU TOGGLE
 ------------------------------ */
 
-// Select hamburger icon and navigation links
+// Select hamburger icon, nav links, and mobile menu
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
+const mobileMenu = document.querySelector('.mobile-menu');
 
-// Toggle mobile menu when hamburger is clicked
+// Toggle menus when hamburger is clicked
 hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('nav-active'); // Shows or hides the menu
-    hamburger.classList.toggle('toggle');    // Animate hamburger icon
+    navLinks.classList.toggle('nav-active');   // For desktop nav (optional)
+    mobileMenu.classList.toggle('active');     // For mobile menu
+    hamburger.classList.toggle('toggle');      // Animate hamburger icon
 });
 
 /* ------------------------------
