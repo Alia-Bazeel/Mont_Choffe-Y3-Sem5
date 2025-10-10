@@ -62,24 +62,31 @@ header.shrink .logo span {
 }
 
 /* Logo */
-.logo img {
-    width: 200px;
-    height: auto;
-    margin-right: 10px;
+.logo {
+    display: flex;               /* place image + text side by side */
+    align-items: center;         /* vertically center them */
+    gap: 10px;                   /* spacing between logo and text */
 }
-.logo span {
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: 'Josefin Sans', sans-serif;
+
+.logo img {
+    width: 160px;                 /* adjust size of logo image */
+    height: auto;
 }
 
 .brand-name {
-    font-family: 'Josefin Sans', sans-serif; /* matches your site typography */
-    font-size: 1.8rem; 
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: #FF6F61; /* your brand accent color */
+    text-transform: uppercase;
     letter-spacing: 2px; /* spaced-out letters */
-    text-transform: uppercase; /* all caps for luxury feel */
+
+    /* Gradient text */
+    background: linear-gradient(45deg, #D2691E, #FF6F61);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    display: inline-block;
 }
 
 /* Nav links */
