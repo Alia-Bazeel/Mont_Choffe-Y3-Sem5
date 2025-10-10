@@ -58,7 +58,8 @@ header.shrink .logo span {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;  /* align items from left */
+  gap: 15px;                    /* gap between logo, search, links */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -404,6 +405,9 @@ footer {
         align-items: center; /* center for tablet */
         text-align: center;
         padding: 80px 20px;
+    }
+    .search-bar input {
+        width: 70%;  /* more room on tablet/mobile */
     }
     .hero-content {
         text-align: center; /* center text on mobile */
