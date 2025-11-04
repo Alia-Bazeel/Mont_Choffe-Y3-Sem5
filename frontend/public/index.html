@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mont Choffe - Where Chocolate Meets Coffee</title>
+    <link rel="stylesheet" href="style.css">     <!-- Link to CSS -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- HEADER - NAVIGATION -->
+    <header>
+        <nav class="navbar">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Mont Choffe Logo">
+                <span class="brand-name">Mont Choffe</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+                <button type="submit">🔍︎</button>
+            </div>
+
+            <!-- Essential Nav Links -->
+            <ul class="nav-links">
+                <li><a href="#products">Our Products</a></li>
+                <li><a href="pages/findUs.html">Find Us</a></li>
+            </ul>
+
+            <!-- Hamburger Icon (3 empty spans - 3 bars) -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <!-- Collapsible Menu (Hidden inside hamburger) - for Mobile -->
+            <div class="mobile-menu">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#login">Login/Signup</a></li>
+                    <li><a href="pages/carrers.html">Careers</a></li>
+                    <li><a href="pages/recipes.html">Recipe Collection</a></li>
+                    <li><a href="pages/pairings.html">Pair Our Products</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where Chocolate Meets Coffee</h1>
+            <p>Indulge in luxurious chocolate and aromatic coffee, crafted for every moment.</p>
+            <a href="#products" class="cta-btn">Shop Now</a>
+        </div> <!-- CTA button -> Call-To-Action button -->
+        <!--
+        <div class="hero-image">
+            <img src="assets/images/hero_banner.png" alt="Chocolate and Coffee">
+        </div>-->
+    </section>
+
+    <!-- Premium Products Section -->
+    <section id="products" class="premium-products">
+        <h2>Premium Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="assets/images/truffle_collection.png" alt="Mont Choffe Truffle Collection">
+                <h3>Truffle Collection</h3>
+                <p>35 د.إ</p>
+            </div>
+            
+            <div class="product-card">
+                <img src="assets/images/classic_roast.png" alt="Mont Choffe Classic Roast">
+                <h3>Classic Roast Coffee</h3>
+                <p>75 د.إ</p>
+            </div>
+            
+            <div class="product-card">
+                <img src="assets/images/gift_hamper.png" alt="Mont Choffe Gift Hamper">
+                <h3>Luxury Gift Hamper</h3>
+                <p>140 د.إ</p>
+            </div>
+        </div>
+        
+        <div class="view-all">
+            <a href="pages/products.html" class="btn">View All Products</a>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="about">
+        <h2>About Mont Choffe</h2>
+        <p>Founded in 2005, Mont Choffe blends the finest cocoa and coffee beans from Ecuador and Ethiopia to create a luxurious taste experience. Our products, from handcrafted chocolate bars to aromatic coffee blends, are designed for indulgence, daily enjoyment, and gifting.</p>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="social-links">
+            <!-- Social Media Icons -->
+            <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+            <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Mont Choffe. All rights reserved.</p>
+    </footer>
+
+    <!-- JS for interactivity -->
+    <script src="script.js"></script>
+</body>
+</html>
