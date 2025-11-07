@@ -359,22 +359,91 @@ header.shrink .logo span {
 }
 
 /* ABOUT US SECTION */
-.about {
-    padding: 50px 20px;
-    background-color: #fff;
+.about-section {
+    background-color: #f7f5f0;              /* soft luxury background */
+    padding: 100px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;                        /* responsive support */
+}
+
+.about-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+    gap: 50px;
+    align-items: center;
+}
+
+/* Left image */
+.about-image {
+    flex: 1 1 45%;
     text-align: center;
 }
-.about h2 {
+
+.about-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.05);                 /* subtle zoom on hover */
+}
+
+/* Right text content */
+.about-content {
+    flex: 1 1 50%;
+}
+
+.about-content h2 {
+    font-size: 2.2rem;
+    color: #1b1b1b;
+    margin-bottom: 20px;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 2.5rem;
-    color: #4B2E2E;
+    position: relative;
+}
+
+/* Decorative underline */
+.about-content h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(45deg, #D2691E, #FF6F61);
+    border-radius: 2px;
+}
+
+.about-content p {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1.05rem;
     margin-bottom: 20px;
 }
-.about p {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 1.1rem;
-    line-height: 1.8;
+
+/* About button (matches your existing button theme) */
+.about-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    background: linear-gradient(45deg, #D2691E, #FF6F61);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.about-btn:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(45deg, #FF6F61, #E57C4C);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
 /* CONTACT SECTION */
@@ -482,6 +551,17 @@ footer {
     .view-all .btn {
         padding: 8px 20px;   /* slightly smaller padding */
         font-size: 0.95rem;  /* slightly smaller font */
+    }
+    
+    .about-section {padding: 70px 40px;}
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-content {flex: 1 1 100%;}
+    .about-content h2::after {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
