@@ -28,41 +28,22 @@ button {
 header {
     background-color: #4B2E2E; /* Dark chocolate brown */
     color: white;
-    padding: 10px 20px;
-    position: sticky;
+    width: 100%;
+    padding: 15px 40px; /* top/bottom, left/right spacing */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);  /* subtle shadow for depth */
+    position: sticky; /* keeps header on top while scrolling */
     top: 0;
     z-index: 1000;
-    /*box-shadow: 0 2px 10px rgba(0,0,0,0.3); */ /* subtle shadow for depth */
-    transition: all 0.3s ease; /* Smooth shrinking */
+    display: flex;
+    flex-direction: column; /* stack top and bottom rows */
+    gap: 10px; /* spacing between rows */
 }
 
-/* Shrink effect on scroll */
-header.shrink {
-    padding: 5px 20px;
-    /*background-color: #3A2323;*/
-    background-color: rgba(58, 35, 35, 0.9); /* slightly darker semi-transparent */
-}
-
-/* Logo shrink effect */
-header.shrink .logo img {
-    width: 100px; /* shrink effect */
-    /*transition: width 0.3s ease;*/
-}
-
-header.shrink .logo span {
-    font-size: 1.2rem;
-    /*transition: font-size 0.3s ease;*/
-}
-
-/* Navbar flex layout */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;  /* align items from left */
-  gap: 15px;                    /* gap between logo, search, links */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* Top row: logo + main nav */
+.header-top {
+    display: flex;
+    justify-content: space-between; /* logo left, nav right */
+    align-items: center;            /* vertically center */
 }
 
 /* Logo */
@@ -71,7 +52,6 @@ header.shrink .logo span {
     align-items: center;         /* vertically center them */
     gap: 10px;                   /* spacing between logo and text */
 }
-
 .logo img {
     width: 160px;                 /* adjust size of logo image */
     height: auto;
@@ -82,61 +62,92 @@ header.shrink .logo span {
     font-size: 1.8rem;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 2px; /* spaced-out letters */
-
-    /* Gradient text */
+    /* Gradient text effect */
     background: linear-gradient(45deg, #D2691E, #FF6F61);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    display: inline-block;
 }
 
-/* Search Bar */
-.search-bar {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  margin: 0 20px;
-}
-.search-bar input {
-  width: 60%;
-  padding: 6px 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-}
-.search-bar button {
-  padding: 6px 12px;
-  border: none;
-  background: #FF6F61;
-  color: #fff;
-  border-radius: 0 20px 20px 0;
-  cursor: pointer;
-}
-
-/* Nav links */
-.nav-links {
+/* Main navigation links */
+.main-nav-links {
     display: flex;
-    gap: 20px;
+    gap: 25px; /* space between links */
 }
-.nav-links li {
-  list-style: none;
+.main-nav-links li {
+    list-style: none; /* remove bullet points */
 }
-.nav-links li a {
+.main-nav-links li a {
     color: white;
     font-weight: 500;
-    text-decoration: none;
-    transition: color 0.3s;
+    font-size: 1rem;
+    transition: 0.3s; /* smooth color transition */
 }
-.nav-links li a:hover {
-    color: #FF6F61; /* Accent hover color */
+.main-nav-links li a:hover {
+    color: #FF6F61; /* accent color on hover */
 }
 
-/* Hamburger menu for mobile */
+/* BOTTOM ROW: Search + CTA/Login */
+.header-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;         /* spacing between search and CTA */
+    flex-wrap: wrap;   /* wrap on small screens */
+}
+
+/* Search bar */
+.search-bar {
+    flex: 1;           /* take available space */
+    display: flex;
+    max-width: 500px;  /* limit width for large screens */
+}
+.search-bar input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 25px 0 0 25px; /* rounded left side */
+    border: none;
+    outline: none;
+}
+.search-bar button {
+    padding: 8px 15px;
+    border-radius: 0 25px 25px 0; /* rounded right side */
+    border: none;
+    background: #FF6F61;           /* accent CTA color */
+    color: white;
+    cursor: pointer;
+}
+
+/* CTA / Login button */
+.cta-login .btn {
+    padding: 10px 25px;
+    border-radius: 50px; /* pill shape for luxury feel */
+    background: linear-gradient(45deg, #D2691E, #FF6F61); /* gradient for richness */
+    color: white;
+    font-weight: 600;
+    transition: 0.3s; /* smooth hover effects */
+}
+.cta-login .btn:hover {
+    transform: translateY(-2px); /* slight lift on hover */
+}
+
+/* EXTRA LINKS BELOW HEADER */
+.extra-links {
+    text-align: center;
+    margin-top: 5px;  /* small spacing below bottom row */
+}
+.extra-links a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 0.9rem;
+    text-decoration: underline; /* subtle indication for links */
+}
+.extra-links a:hover {
+    color: #FFD700; /* gold hover color for premium feel */
+}
+
+/* HAMBURGER MENU (MOBILE) */
 .hamburger {
-    display: none; /* Hidden on desktop */
+    display: none;     /* hidden on desktop */
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
@@ -145,33 +156,6 @@ header.shrink .logo span {
     width: 25px;
     height: 3px;
     background: white;
-}
-
-/* Mobile Menu */
-.mobile-menu {
-  display: none;
-  position: absolute;
-  top: 60px;
-  right: 5%;
-  background: #333;
-  padding: 10px 20px;
-  border-radius: 8px;
-}
-.mobile-menu ul {
-  list-style: none;
-  padding: 0;
-}
-.mobile-menu a {
-  display: block;
-  padding: 10px 0;
-  color: white;
-  text-decoration: none;
-}
-.mobile-menu a:hover {
-  color: #FF6F61;
-}
-.mobile-menu.active {
-  display: block;
 }
 
 /* HERO SECTION */
@@ -526,15 +510,33 @@ footer {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
+    /* Hide main nav links on tablet/mobile */
+    .main-nav-links {
+        display: none; 
+    }
+    /* Stack search + CTA vertically */
+    .header-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+    /* Show hamburger menu */
+    .hamburger {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        right: 40px;
+    }
+    /* Hide extra links on mobile */
+    .extra-links {
+        display: none;
+    }
+
     .hero {
         flex-direction: column;
         justify-content: center;
         align-items: center; /* center for tablet */
         text-align: center;
         padding: 80px 20px;
-    }
-    .search-bar input {
-        width: 70%;  /* more room on tablet/mobile */
     }
     .hero-content {
         text-align: center; /* center text on mobile */
@@ -544,29 +546,6 @@ footer {
     }
     .hero-content p {
         font-size: 1rem;
-    }
-    .nav-links {
-        display: none; /* Hide nav on mobile */
-        flex-direction: column;
-        background-color: #4B2E2E;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 200px;
-        padding: 20px;
-        border-radius: 0 0 0 10px;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .logo img {
-        width: 120px;
-    }
-    
-    .logo span {
-        font-size: 1.2rem;
     }
 
     .view-all .btn {
