@@ -12,51 +12,40 @@
 <body>
     <!-- HEADER - NAVIGATION -->
     <header>
-        <!-- Top Row -->
-        <div class="header-top">
-            <!-- Logo -->
+        <!-- HEADER GRID LAYOUT -->
+        <div class="header-grid">
+            
+            <!-- Row1-Column1 -- Left -- LOGO -->
             <div class="logo">
                 <img src="assets/images/logo.png" alt="Mont Choffe Logo">
                 <span class="brand-name">Mont Choffe</span>
             </div>
             
-            <!-- Main Nav Links -->
-            <ul class="main-nav-links">
-                <li><a href="#hero-section">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#informal-contact">Contact</a></li>
-            </ul>
-        </div>
-
-        <!-- Bottom Row -->
-        <div class="header-bottom">
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button>🔍︎</button>
+            <!-- Row1-Column3 -- Right -- MAIN-LINKs -->
+            <div class="main-links">
+                <ul class="main-nav-links">
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="login-links">
+                    <a href="pages/login.html">Sign In</a> / <a href="pages/signup.html">Sign Up</a>
+                </div>
             </div>
             
-            <!-- CTA / Login -->
-            <div class="cta-login">
-                <a href="pages/login.html" class="btn">Login / Signup</a>
+            <!-- Row2-Column2 -- Center -- SEARCH -->
+            <div class="search-bar-container">
+                <input type="text" placeholder="Search...">
+                <button type="submit">🔍︎</button>
+            </div>
+            
+            <!-- Row3-Column2 -- Center -- MORE LINKs -->
+            <div class="extra-links">
+                <a href="pages/careers.html">Careers</a>
+                <a href="pages/recipes.html">Recipe Collection</a>
+                <a href="pages/pairings.html">Pair Our Products</a>
             </div>
         </div>
-
-        <!-- Optional extra links -->
-        <div class="extra-links">
-            <a href="pages/recipes.html">Recipe Collection</a>
-            <a href="pages/pairings.html">Pair Our Products</a>
-            <a href="pages/careers.html">Careers</a>
-        </div>
-
-        <!-- Hamburger for mobile -->
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
     </header>
 
     <!-- HERO SECTION -->

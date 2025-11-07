@@ -25,38 +25,33 @@ button {
 }
 
 /* HEADER - SEMI-TRANSPARENT + SHADOW */
-header {
-    background-color: #4B2E2E; /* Dark chocolate brown */
+.header-grid {
+    display: grid;
+    grid-template-rows: auto auto auto; /* three rows */
+    grid-template-columns: 1fr 1fr 1fr; /* three columns */
+    align-items: center;                /* vertical alignment */
+    gap: 10px;                          /* spacing between rows */
+    padding: 15px 40px;                 /* top/bottom, left/right spacing */
+    background-color: #4B2E2E;        /* Dark chocolate brown */
     color: white;
-    width: 100%;
-    padding: 15px 40px; /* top/bottom, left/right spacing */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);  /* subtle shadow for depth */
-    position: sticky; /* keeps header on top while scrolling */
+    position: sticky;                   /* keeps header on top while scrolling */
     top: 0;
     z-index: 1000;
-    display: flex;
-    flex-direction: column; /* stack top and bottom rows */
-    gap: 10px; /* spacing between rows */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* subtle shadow for depth */
 }
 
-/* Top row: logo + main nav */
-.header-top {
-    display: flex;
-    justify-content: space-between; /* logo left, nav right */
-    align-items: center;            /* vertically center */
-}
-
-/* Logo */
+/* Row1-Column1 -- Left -- LOGO */
 .logo {
-    display: flex;               /* place image + text side by side */
-    align-items: center;         /* vertically center them */
-    gap: 10px;                   /* spacing between logo and text */
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;  /* first column */
+    display: flex;       /* place image + text side by side */
+    align-items: center; /* vertically center them */
+    gap: 10px;           /* spacing between logo and text */
 }
 .logo img {
-    width: 160px;                 /* adjust size of logo image */
+    width: 160px; /* adjust size of logo image */
     height: auto;
 }
-
 .brand-name {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 1.8rem;
@@ -68,9 +63,13 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* Main navigation links */
-.main-nav-links {
+/* Row1-Column3 -- Right -- MAIN-LINKs */
+.main-links {
+    grid-row: 1/2;
+    grid-column: 3/4; /* third column */
     display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 25px; /* space between links */
 }
 .main-nav-links li {
@@ -552,7 +551,7 @@ footer {
         padding: 8px 20px;   /* slightly smaller padding */
         font-size: 0.95rem;  /* slightly smaller font */
     }
-    
+
     .about-section {padding: 70px 40px;}
     .about-container {
         flex-direction: column;
