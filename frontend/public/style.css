@@ -336,7 +336,7 @@ header.shrink .logo span {
 }
 
 /* The main CTA (Call to Action) button */
-.view-all .btn {
+.view-all .product-btn {
     display: inline-block;
     padding: 10px 40px;              /* larger padding for visibility */
     background: linear-gradient(45deg, #D2691E, #FF6F61);  /* elegant gradient */
@@ -352,7 +352,7 @@ header.shrink .logo span {
 }
 
 /* Hover effects */
-.view-all .btn:hover {
+.view-all .product-btn:hover {
     transform: translateY(-5px) scale(1.05);  /* slight lift & enlarge */
     background: linear-gradient(45deg, #FF6F61, #E57C4C);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
@@ -447,52 +447,72 @@ header.shrink .logo span {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
-/* CONTACT SECTION */
-.contact {
-    padding: 50px 20px;
-    text-align: center;
-}
-.contact h2 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 2.5rem;
-    color: #4B2E2E;
-    margin-bottom: 20px;
-}
-.contact form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.contact input, 
-.contact textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-.contact button {
-    padding: 10px 25px;
-    background-color: #D2691E;
+/* INFORMAL FOOTER kindof CONTACT */
+.informal-footer {
+    position: relative;
+    background-image: url("assets/images/informal_contact_bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: 0.3s;
+    text-align: center;
+    padding: 100px 250px;
+    margin-top: 0px;
 }
-.contact button:hover {
-    background-color: #FF6F61;
+
+.informal-overlay {
+    background-color: rgba(0, 0, 0, 0.65); /* dark overlay for readability */
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
 }
-.social-links {
-    margin-top: 20px;
+
+.informal-content h2 {
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #fff;
 }
-.social-links a img {
-    width: 30px;
-    margin: 0 10px;
-    transition: 0.3s;
+
+.informal-content p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 35px;
+    line-height: 1.8;
+    color: #ddd;
 }
-.social-links a img:hover {
+
+/* CTA Button */
+.informal-content .informal-btn {
+    display: inline-block;
+    background-color: #c59d5f; /* warm gold accent */
+    color: #1d0202;
+    padding: 14px 40px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.informal-content .informal-btn:hover {
+    background-color: #b5894e;
+    transform: scale(1.05);
+}
+
+/* Social Icons */
+.social-icons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+.social-icons img {
+    width: 42px;
+    height: 42px;
+    opacity: 0.95;
+    filter: none;
+    transition: 0.3s ease;
+}
+.social-icons img:hover {
     transform: scale(1.1);
 }
 
