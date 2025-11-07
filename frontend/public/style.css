@@ -45,7 +45,7 @@ header.shrink {
 
 /* Logo shrink effect */
 header.shrink .logo img {
-    width: 150px; /* shrink effect */
+    width: 100px; /* shrink effect */
     /*transition: width 0.3s ease;*/
 }
 
@@ -217,109 +217,146 @@ header.shrink .logo span {
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
-/*.hero-image {
-    flex: 1;
-    min-width: 300px;
-}
-.hero-image img {
-    width: 100%;
-    border-radius: 10px;
-}*/
-
 /* PREMIUM PRODUCTS SECTION */
 .products {
-    padding: 50px 20px;
+    padding: 80px 20px;
     text-align: center;
+    background: linear-gradient(to bottom, #FDF7F2, #FFF);
 }
-.products h2 {
+.premium-products h2 {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 2.5rem;
-    color: #4B2E2E;
-    margin-bottom: 40px;
+    font-size: 2.8rem;
+    color: #3E1F1F;
+    text-align: center;
+    margin: 30px auto 15px; /* adds space above & below */
+    position: relative;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Add a gold underline below the title */
+.premium-products h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #C38E52, #E3C87A);
+    margin: 15px auto 0;
+    margin-top: 0px;
+    border-radius: 2px;
+}
+
+/* fade-in or slide-up effect when visible */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.premium-products h2 {
+    animation: fadeUp 1s ease forwards;
 }
 
 /* Product grid layout */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    padding: 0 40px
 }
 
 /* Product card styling */
 .product-card {
     background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    position: relative;
 }
+/* Image styling */
 .product-card img {
     width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
+
+/* Content area */
 .product-card h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.3rem;
     color: #4B2E2E;
-    margin-bottom: 10px;
+    margin: 15px 0 5px;
+    padding-left: 20px;
 }
+
 .product-card p {
     font-weight: bold;
+    color: #A0522D;
+    font-size: 1.1rem;
     margin-bottom: 15px;
-    direction: ltr; /* Ensures numbers are left-to-right with currency */
+    padding-left: 20px;
 }
-.product-card button {
-    padding: 10px 20px;
-    background-color: #D2691E;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: 0.3s;
+
+/* Add a gradient bar under each card */
+.product-card::after {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #D2691E, #FF6F61);
+    transition: 0.4s;
+    transform: scaleX(0);
+    transform-origin: left;
 }
-.product-card button:hover {
-    background-color: #FF6F61;
+
+.product-card:hover::after {
+    transform: scaleX(1);
 }
+
+/* Hover Effects */
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
-/* Hero banner for products page */
-.hero-products {
-    background: url('../assets/images/products_banner.jpg') center/cover no-repeat;
-    height: 40vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
+.product-card:hover img {
+    transform: scale(1.07);
 }
 
-/* VIEW ALL PRODUCTS BUTTON */
+/* "View All" button stays the same, but you can center it more elegantly */
 .view-all {
-    text-align: center;
-    margin-top: 20px;
+    text-align: center;              /* center the button */
+    margin: 8px 0;                  /* more space above & below */
 }
 
+/* The main CTA (Call to Action) button */
 .view-all .btn {
     display: inline-block;
-    padding: 10px 25px;
-    background-color: #D2691E; /* Caramel CTA color */
-    color: white;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 10px 40px;              /* larger padding for visibility */
+    background: linear-gradient(45deg, #D2691E, #FF6F61);  /* elegant gradient */
+    color: #fff;
+    font-size: 1.2rem;               /* slightly bigger text */
+    font-weight: 600;
     border: none;
-    border-radius: 5px;
-    transition: all 0.3s ease; /* smooth hover transition */
-    text-decoration: none; /* remove underline */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+    border-radius: 50px;             /* rounded & soft edges */
+    text-decoration: none;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
 }
 
+/* Hover effects */
 .view-all .btn:hover {
-    background-color: #FF6F61; /* Accent hover color */
-    transform: translateY(-3px); /* slight lift */
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2); /* enhanced shadow on hover */
-} /* box-shadow -> makes the button pop like the product cards */
+    transform: translateY(-5px) scale(1.05);  /* slight lift & enlarge */
+    background: linear-gradient(45deg, #FF6F61, #E57C4C);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
 
 /* ABOUT US SECTION */
 .about {
