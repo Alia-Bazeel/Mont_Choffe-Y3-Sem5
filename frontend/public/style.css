@@ -361,7 +361,7 @@ header.shrink .logo span {
 /* ABOUT US SECTION */
 .about-section {
     background-color: #f7f5f0;              /* soft luxury background */
-    padding: 100px 80px;
+    padding: 10px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
