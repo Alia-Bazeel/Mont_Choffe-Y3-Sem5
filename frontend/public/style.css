@@ -360,8 +360,9 @@ header.shrink .logo span {
 
 /* ABOUT US SECTION */
 .about-section {
+    margin-top: 15px;
     background-color: #f7f5f0;              /* soft luxury background */
-    padding: 10px 20px;
+    padding: 25px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -385,7 +386,7 @@ header.shrink .logo span {
 
 .about-image img {
     width: 100%;
-    max-width: 500px;
+    max-width: 435px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     transition: transform 0.4s ease;
@@ -424,7 +425,7 @@ header.shrink .logo span {
     color: #333;
     line-height: 1.8;
     font-size: 1.05rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 /* About button (matches your existing button theme) */
