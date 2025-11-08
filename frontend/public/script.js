@@ -83,12 +83,16 @@ allLinks.forEach(link => {
     (and show brand-name on scroll)
 ------------------------------ */
 
-window.addEventListener("scroll", () => {
+window.addEventListener("scroll", function() {
     const header = document.querySelector("header");
+    const hamburger = document.querySelector(".hamburger");
+
     if (window.scrollY > 50) {
-        header.classList.add("shrink"); // Apply shrink class
+        header.classList.add("shrink");   // Shrink header and show brand-name
+        hamburger.style.display = "flex"; // Show hamburger when shrunk
     } else {
-        header.classList.remove("shrink"); // Remove shrink class
+        header.classList.remove("shrink"); // Restore full header
+        hamburger.style.display = "none";  // Hide hamburger in full view
     }
 });
 
