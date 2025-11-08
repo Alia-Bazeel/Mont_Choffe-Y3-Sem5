@@ -25,7 +25,6 @@ button {
 }
 
 /* HEADER STYLING */
-
 header {
     position: fixed;
     width: 100%;
@@ -54,6 +53,7 @@ header {
     align-items: center;
     gap: 10px;
     margin-top: 10px;
+    justify-content: flex-start;
 }
 .logo {
     width: 150px;
@@ -67,7 +67,7 @@ header {
 
 /* Main navigation */
 .main-nav-links {
-    margin-top: -35px;
+    margin-top: 0px;
     display: flex;
     list-style: none;
     align-items: center;
@@ -78,8 +78,17 @@ header {
     text-decoration: none;
     font-size: 1rem;
 }
-.main-nav-links li a:hover { color: #ffb347; }
+.main-nav-links li a:hover { color: #6b3809; }
+/* user icon */
 .user-icon i { font-size: 1.3rem; }
+.user-icon a i {
+    font-size: 1.3rem;
+    color: white;
+    transition: color 0.3s ease;
+}
+.user-icon a i:hover {
+    color: #6b3809;
+}
 
 /* Hamburger */
 .hamburger {
@@ -149,21 +158,62 @@ header {
     color: #d6c7c7;
     font-size: 0.95rem;
 }
-.more-links a:hover { color: #FFD700; }
+.more-links a:hover {color: #6b3809;}
 
 /* SHRINK ON SCROLL */
 header.shrink {
     padding: 5px 20px;
     background-color: #1c0e0e;
 }
-header.shrink .brand-name { opacity: 1; }
+header.shrink .brand-name {opacity: 1;}
+header.shrink .logo-container {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+header.shrink .logo {width: 100px;}
+header.shrink .main-nav-links {display: none;}
+header.shrink .more-links {
+    display: none; /* hide more-links when shrunk */
+}
+header.shrink .hamburger {
+    display: flex; /* show hamburger when shrunk */
+}
 
 /* MOBILE MENU */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.hamburger.toggle span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+.hamburger.toggle span:nth-child(2) {opacity: 0;}
+.hamburger.toggle span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* --- MOBILE MENU CONTENT --- */
 .mobile-menu {
     display: none;
     background-color: #1c0e0e;
     padding: 20px;
 }
+.mobile-menu.active {display: block;}
 .mobile-menu ul {
     list-style: none;
     display: flex;
