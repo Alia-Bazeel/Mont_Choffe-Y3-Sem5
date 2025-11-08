@@ -83,7 +83,7 @@ allLinks.forEach(link => {
     (and show brand-name on scroll)
 ------------------------------ */
 
-window.addEventListener("scroll", function() {
+window.addEventListener("scroll", () => {
     const header = document.querySelector("header");
     if (window.scrollY > 50) {
         header.classList.add("shrink"); // Apply shrink class
