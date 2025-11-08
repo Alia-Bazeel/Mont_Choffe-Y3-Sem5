@@ -37,18 +37,19 @@ header {
   flex-direction: column;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-/* Main Header Container */
+/* Main header */
 .header-container {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Vertically centers logo & nav */
+  align-items: center; /* vertically centers logo & nav */
   width: 100%;
   max-width: 1300px;
 }
 
-/* LEFT SIDE: LOGO */
+/* LOGO (Left Side) */
 .logo-container {
   display: flex;
   align-items: center;
@@ -56,12 +57,10 @@ header {
   flex: 1;
 }
 .logo {
-  width: 70px;
+  width: 75px;
   height: auto;
   object-fit: contain;
 }
-
-/* Hide brand name until scroll */
 .brand-name {
   font-size: 1.5rem;
   font-weight: 700;
@@ -70,13 +69,11 @@ header {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
-/* When header shrinks (JS adds class) */
 header.shrink .brand-name {
   opacity: 1;
 }
 
-/* RIGHT SIDE: MAIN NAV LINKS */
+/* MAIN NAV LINKS (Right) */
 .main-nav {
   flex: 2;
   display: flex;
@@ -95,25 +92,25 @@ header.shrink .brand-name {
   transition: color 0.3s ease;
 }
 .main-nav-links li a:hover {
-  color: #ffb347; /* gold-like hover */
+  color: #8b560c;
 }
-
-/* User icon styling */
 .user-icon i {
   font-size: 1.3rem;
   color: white;
   transition: color 0.3s ease;
 }
 .user-icon i:hover {
-  color: #FFD700;
+  color: #8b560c;
 }
 
-/* CENTERED SEARCH BAR */
+/* SEARCH BAR + BUTTON */
 .search-container {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 10px; /* Closer to main nav */
+  align-items: center;
+  margin-top: 5px; /* Closer to main nav */
+  gap: 8px;
 }
 .search-bar {
   width: 45%;
@@ -132,8 +129,20 @@ header.shrink .brand-name {
 .search-bar:focus {
   box-shadow: 0 0 8px #ffb347;
 }
+.search-btn {
+  background-color: #d2691e;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.search-btn:hover {
+  background-color: #ffb347;
+}
 
-/* EXTRA LINKS BELOW SEARCH */
+/* MORE LINKS (Below Search) */
 .more-links {
   margin-top: 12px;
   display: flex;
@@ -147,14 +156,13 @@ header.shrink .brand-name {
   transition: color 0.3s ease;
 }
 .more-links a:hover {
-  color: #FFD700;
+  color: #8b560c;
 }
 
 /* SHRINK ON SCROLL */
 header.shrink {
   background-color: #1c0e0e;
   padding: 10px 60px;
-  transition: all 0.3s ease;
 }
 
 /* HERO SECTION */
@@ -509,16 +517,57 @@ footer {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-    /* reduce logo size a bit on medium screens */
-    .logo img { width: 130px; }
-    .search-bar-centered { max-width: 420px; }
-    /* mobile: hide main links, show hamburger */
-    .main-nav-links { display: none; }
-    .user-icon { display: none; } /* we put sign-in in mobile menu */
-    .hamburger { display: block; }
-    .search-bar-centered { max-width: 320px; padding: 0 6px; }
-    .extra-links { display: none; } /* moved into mobile menu */
-    .mobile-menu { display: none; } /* toggled by JS */
+    header {padding: 15px 25px;}
+    .main-nav-links {
+        display: none; /* hidden — use hamburger */
+    }
+    .hamburger {
+        display: block;
+        background: none;
+        border: none;
+        flex-shrink: 0;
+        cursor: pointer;
+        position: absolute;
+        right: 25px;
+        top: 25px;
+        z-index: 1000;
+    }
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.3s;
+    }
+    .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 100%;
+        background-color: #1c0e0e;
+        padding: 20px;
+    }
+    .mobile-menu.active {display: block;}
+    .mobile-menu ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .mobile-menu ul a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+    }
+    .search-bar {width: 70%;}
+    .search-btn {padding: 8px 14px;}
+    .more-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 
     .hero {
         flex-direction: column;
@@ -555,27 +604,25 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .logo img {
-        width: 90px;
+    .logo {width: 60px;}
+    .search-bar {
+        width: 85%;
+        font-size: 0.9rem;
     }
-    .logo span {
-        font-size: 1rem;
+    .search-btn {padding: 8px 12px;}
+    .more-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
     }
-
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
+    
+    .hero-content h1 {font-size: 2rem;}
+    .hero-content p {font-size: 1rem;}
     .cta-btn {
         padding: 8px 18px;
         font-size: 0.9rem;
     }
-
-    .hero-image img {
-        border-radius: 8px;
-    }
+    .hero-image img {border-radius: 8px;}
 
     .view-all .btn {
         padding: 6px 15px;   /* very small screen padding */
