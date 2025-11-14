@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mont Choffe Login</title>
+    <link rel="stylesheet" href="login.css"> <!-- linking css -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-bg">
+        <div class="login-card">
+            <h2 id="formTitle">Login</h2>
+            <form id="authForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="text" id="name" placeholder="Full Name (Sign Up)" style="display:none;" required>
+                <button type="submit" id="authBtn">Login</button>
+            </form>
+            <p class="toggle-text">
+                <span id="toggleText">Don't have an account?</span>
+                <a href="#" id="toggleLink">Sign Up</a>
+            </p>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+    
+    <script src="login.js"></script>
+</body>
+</html>

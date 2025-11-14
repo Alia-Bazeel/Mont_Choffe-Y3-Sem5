@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Mont Choffe</title>
+    <!-- Linking CSS -->
+    <link rel="stylesheet" href="about_us.css">
+    <link rel="stylesheet" href="main_page.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER - NAVIGATION -->
+    <header>
+        <!-- TOP ROW: LOGO + NAV -->
+        <div class="header-top">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="pages-images/logo.png" alt="Mont Choffe Logo" class="logo">
+                <!-- brand-name hidden by default -- shown only when header.shrink -->
+                <h1 class="brand-name">Mont Choffe</h1>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav">
+                <ul class="main-nav-links">
+                    <li><a href="C:\Users\ALIA BAZEEL\Downloads\BSU RAK\Tomorrow's Web\Assessment 1\Mont_Choffe-Y3-Sem5\frontend\public\index.html">Home</a></li>
+                    <li><a href="frontend\public\index.html\#products">Products</a></li>
+                    <li><a href="frontend\public\index.html\#about">About</a></li>
+                    <li class="user-icon">
+                        <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Hamburger -->
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="headerSearch" placeholder="Search products..." class="search-bar">
+            <button type="submit" id="headerSearchBtn" class="search-btn">🔍︎</button>
+        </div>
+        
+        <!-- MORE LINKS -->
+        <div class="more-links">
+            <a href="#informal-contact">Contact</a>
+            <a href="pages/career.html">Careers</a>
+            <a href="pages/recipes.html">Recipe Collection</a>
+            <a href="pages/pairings.html">Pair Our Products</a>
+            <a href="pages/findUs.html">Find Us</a>
+        </div>
+        
+        <!-- MOBILE MENU -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="C:\Users\ALIA BAZEEL\Downloads\BSU RAK\Tomorrow's Web\Assessment 1\Mont_Choffe-Y3-Sem5\frontend\public\index.html">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#informal-contact">Contact</a></li>
+                <li><a href="pages/career.html">Careers</a></li>
+                <li><a href="pages/recipes.html">Recipe Collection</a></li>
+                <li><a href="pages/pairings.html">Pair Our Products</a></li>
+                <li><a href="pages/findUs.html">Find Us</a></li>
+                <li><a href="pages/login.html">Sign In / Sign Up</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="about-hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1><strong>Mont Choffe</strong></h1>
+            <p><i><strong>Crafting joy since 2005</strong></i></p>
+        </div>
+    </section>
+
+    <!-- OUR STORY SECTION -->
+    <section class="about-section" id="our-story">
+        <div class="about-container">
+            <!-- img->left -->
+            <div class="about-image">
+                <img src="pages-images/about_story.png" alt="Mont Choffe coffee and chocolate">
+            </div>
+            
+            <!-- text->right -->
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Founded in 2005, <strong>Mont Choffe</strong> began as a humble passion for two of life's greatest pleasures — 
+                    <em>coffee</em> and <em>chocolate</em>. Our journey started in a small workshop surrounded by the aroma of 
+                    roasted beans and the sweetness of melted cocoa.</p>
+                <p>Today, Mont Choffe brings together the finest cocoa from Ecuador and coffee beans from Ethiopia, blending 
+                    craftsmanship with modern artistry. Each product — from our handcrafted truffles to our signature roast blends — 
+                    embodies the harmony of bold flavor and refined elegance.</p>
+                <p>More than a brand, Mont Choffe is an experience — a celebration of taste, aroma, and emotion. 
+                    Every sip and bite tells our story of dedication, indulgence, and the art of slow perfection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRAFTSMANSHIP -->
+    <section class="about-section alt" id="craftsmanship">
+        <div class="about-container">
+            <!-- text->left -->
+            <div class="about-content">
+                <h2>Our Craftsmanship</h2>
+                <p>At <strong>Mont Choffe</strong>, every creation begins with a deep respect for our ingredients — 
+                    the finest <em>cocoa beans</em> and <em>coffee grounds</em> sourced from sustainable farms 
+                    across the world. Our artisans blend traditional handcrafting techniques with contemporary 
+                    artistry to bring out pure, authentic flavors.</p>
+                <p>From slow-roasting to precision tempering, each step is a labor of passion and precision. 
+                    The result — a flawless harmony between rich chocolate depth and aromatic coffee smoothness 
+                    that defines the Mont Choffe experience.</p>
+            </div>
+            
+            <!-- img->right -->
+            <div class="about-image">
+                <img src="pages-images/about_craftsmanship.png" alt="Mont Choffe craftsmanship in coffee and chocolate">
+            </div>
+        </div>
+    </section>
+
+    <!-- MEET THE TEAM -->
+    <section class="team-section" id="team">
+        <div class="team-container">
+            <h2 class="team-title">Meet the Team</h2>
+            <p class="team-intro">Our passionate chocolatiers, coffee artisans, 
+                and creators work together to craft unforgettable flavors — 
+                one experience at a time.</p>
+            
+            <div class="team-grid">
+
+                <!-- Founder -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="pages-images/about_founder.png" alt="Founder of Mont Choffe">
+                    </div>
+                    <h3>Charlotte Duval</h3>
+                    <p class="role">Founder & CEO</p>
+                    <p class="bio">Charlotte founded Mont Choffe with the dream of 
+                        blending warmth, craftsmanship, and luxury into every 
+                        chocolate and coffee creation.</p>
+                </div>
+                
+                <!-- Head Chocolatier -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="pages-images/about_headchef.png" alt="Head Chocolatier">
+                    </div>
+                    <h3>Matteo Bianchi</h3>
+                    <p class="role">Head Chocolatier</p>
+                    <p class="bio">Matteo's Swiss expertise and passion for perfection 
+                        shape the textures and flavors that define our signature blends.</p>
+                </div>
+
+                <!-- Pastry Chef -->
+                <div class="team-card">
+                    <div class="team-img">
+                        <img src="pages-images/about_pastrychef.png" alt="Executive Pastry Chef">
+                    </div>
+                    <h3>Sofia Laurent</h3>
+                    <p class="role">Executive Pastry Chef</p>
+                    <p class="bio">Sofia's creations mix artistic flair with decadent taste, 
+                        crafting desserts that feel as beautiful as they taste.</p>
+                </div>
+
+                <!-- Creative Director -->
+                <div class="team-card">
+                    <div class="team-img">
+                         <img src="pages-images/about_creative.png" alt="Creative Director">
+                    </div>
+                    <h3>Julien Hartmann</h3>
+                    <p class="role">Creative Director</p>
+                    <p class="bio">Julien curates Mont Choffe's visual storytelling — 
+                        ensuring every detail embodies elegance, warmth, and emotion.</p>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR MISSION -->
+    <section class="about-mission" id="mission">
+        <h2>Our Mission</h2>
+        <p>At Mont Choffe, we believe in sustainability, ethical sourcing, and spreading happiness — one chocolate at a time. We work closely with farmers and communities to create a future that’s as sweet as our chocolates.</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Mont Choffe. All rights reserved.</p>
+    </footer>
+
+    <!-- JS for interactivity -->
+    <script src="main_header.js"></script>
+
+</body>
+</html>
