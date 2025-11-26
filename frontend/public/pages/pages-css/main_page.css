@@ -8,7 +8,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: #333333;
-    background-color: #F5F0E1; /* Cream background */
+    /*background-color: #F5F0E1;*/ /* Cream background */
+    background-color:#362020;
     line-height: 1.6;
 }
 
@@ -239,7 +240,7 @@ header.shrink .hamburger {
 
 /* FOOTER */
 footer {
-    background-color: #4B2E2E;
+    background-color: #1c0e0e;
     color: white;
     text-align: center;
     padding: 20px;
