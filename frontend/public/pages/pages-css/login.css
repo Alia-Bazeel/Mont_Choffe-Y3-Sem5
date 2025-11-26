@@ -10,7 +10,7 @@ body, html {
 .login-bg {
     height: 100vh;                                  /* full viewport height */
     width: 100%;                                    /* full width */
-    background: url('pages-images/bg_1.png') center/cover no-repeat; /* bg image, center, cover */
+    background: url('css-bg/login_bg.png') center/cover no-repeat; /* bg image, center, cover */
     display: flex;                                  /* flex layout */
     justify-content: center;                        /* horizontally center content */
     align-items: center;                            /* vertically center content */
