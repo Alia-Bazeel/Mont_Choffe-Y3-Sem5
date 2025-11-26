@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Mont Choffe</title>
     <!-- Linking CSS -->
-    <link rel="stylesheet" href="about_us.css">
-    <link rel="stylesheet" href="main_page.css">
+    <link rel="stylesheet" href="pages-css/about_us.css">
+    <link rel="stylesheet" href="pages-css/main_page.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -19,7 +19,9 @@
         <div class="header-top">
             <!-- Logo -->
             <div class="logo-container">
-                <img src="pages-images/logo.png" alt="Mont Choffe Logo" class="logo">
+                <a href="../index.html">
+                    <img src="pages-images/logo.png" alt="Mont Choffe Logo" class="logo">
+                </a>
                 <!-- brand-name hidden by default -- shown only when header.shrink -->
                 <h1 class="brand-name">Mont Choffe</h1>
             </div>
@@ -27,9 +29,9 @@
             <!-- Main Navigation -->
             <nav class="main-nav">
                 <ul class="main-nav-links">
-                    <li><a href="C:\Users\ALIA BAZEEL\Downloads\BSU RAK\Tomorrow's Web\Assessment 1\Mont_Choffe-Y3-Sem5\frontend\public\index.html">Home</a></li>
-                    <li><a href="frontend\public\index.html\#products">Products</a></li>
-                    <li><a href="frontend\public\index.html\#about">About</a></li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about_us.html">About</a></li>
                     <li class="user-icon">
                         <a href="login.html"><i class="fa-regular fa-user"></i></a>
                     </li>
@@ -52,25 +54,25 @@
         
         <!-- MORE LINKS -->
         <div class="more-links">
-            <a href="#informal-contact">Contact</a>
-            <a href="pages/career.html">Careers</a>
-            <a href="pages/recipes.html">Recipe Collection</a>
-            <a href="pages/pairings.html">Pair Our Products</a>
-            <a href="pages/findUs.html">Find Us</a>
+            <a href="contact_us.html">Contact</a>
+            <a href="career.html">Careers</a>
+            <a href="recipes.html">Recipe Collection</a>
+            <a href="pairings.html">Pair Our Products</a>
+            <a href="findUs.html">Find Us</a>
         </div>
         
         <!-- MOBILE MENU -->
         <div class="mobile-menu" id="mobileMenu">
             <ul>
-                <li><a href="C:\Users\ALIA BAZEEL\Downloads\BSU RAK\Tomorrow's Web\Assessment 1\Mont_Choffe-Y3-Sem5\frontend\public\index.html">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#informal-contact">Contact</a></li>
-                <li><a href="pages/career.html">Careers</a></li>
-                <li><a href="pages/recipes.html">Recipe Collection</a></li>
-                <li><a href="pages/pairings.html">Pair Our Products</a></li>
-                <li><a href="pages/findUs.html">Find Us</a></li>
-                <li><a href="pages/login.html">Sign In / Sign Up</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about_us.html">About</a></li>
+                <li><a href="contact_us.html">Contact</a></li>
+                <li><a href="career.html">Careers</a></li>
+                <li><a href="recipes.html">Recipe Collection</a></li>
+                <li><a href="pairings.html">Pair Our Products</a></li>
+                <li><a href="findUs.html">Find Us</a></li>
+                <li><a href="login.html">Sign In / Sign Up</a></li>
             </ul>
         </div>
     </header>
@@ -130,61 +132,68 @@
     </section>
 
     <!-- MEET THE TEAM -->
-    <section class="team-section" id="team">
-        <div class="team-container">
-            <h2 class="team-title">Meet the Team</h2>
-            <p class="team-intro">Our passionate chocolatiers, coffee artisans, 
-                and creators work together to craft unforgettable flavors — 
-                one experience at a time.</p>
+    <section class="team-detailz" id="team">
+        <div class="team-heading">
+            <h2>The Artisans Behind the Aroma</h2>
+            <p>Every bar of chocolate and every cup of coffee carries the passion of the people who craft it — slowly, intentionally, and with heart.</p>
+        </div>
+
+        <div class="team-row">
             
-            <div class="team-grid">
-
-                <!-- Founder -->
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="pages-images/about_founder.png" alt="Founder of Mont Choffe">
-                    </div>
-                    <h3>Charlotte Duval</h3>
-                    <p class="role">Founder & CEO</p>
-                    <p class="bio">Charlotte founded Mont Choffe with the dream of 
-                        blending warmth, craftsmanship, and luxury into every 
-                        chocolate and coffee creation.</p>
+            <!-- Founder -->
+            <div class="team-profile">
+                <img src="pages-images/about_founder.png" alt="Founder of Mont Choffe">
+                <div class="team-info">
+                    <h3>Alia Bazeel</h3>
+                    <span class="team-role">Founder & CEO</span>
+                    <p>Alia built Mont Choffe on a simple belief: that chocolate and coffee deserve the same respect as fine art — crafted with patience, soul, and authenticity.</p>
                 </div>
-                
-                <!-- Head Chocolatier -->
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="pages-images/about_headchef.png" alt="Head Chocolatier">
-                    </div>
-                    <h3>Matteo Bianchi</h3>
-                    <p class="role">Head Chocolatier</p>
-                    <p class="bio">Matteo's Swiss expertise and passion for perfection 
-                        shape the textures and flavors that define our signature blends.</p>
-                </div>
-
-                <!-- Pastry Chef -->
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="pages-images/about_pastrychef.png" alt="Executive Pastry Chef">
-                    </div>
-                    <h3>Sofia Laurent</h3>
-                    <p class="role">Executive Pastry Chef</p>
-                    <p class="bio">Sofia's creations mix artistic flair with decadent taste, 
-                        crafting desserts that feel as beautiful as they taste.</p>
-                </div>
-
-                <!-- Creative Director -->
-                <div class="team-card">
-                    <div class="team-img">
-                         <img src="pages-images/about_creative.png" alt="Creative Director">
-                    </div>
-                    <h3>Julien Hartmann</h3>
-                    <p class="role">Creative Director</p>
-                    <p class="bio">Julien curates Mont Choffe's visual storytelling — 
-                        ensuring every detail embodies elegance, warmth, and emotion.</p>
-                </div>
-            
             </div>
+
+            <!-- Brand Ambassador -->
+            <div class="team-profile">
+                <img src="pages-images/about_ambassador.png" alt="Brand Ambassador">
+                <div class="team-info">
+                    <h3>Aisha Moreau</h3>
+                    <span class="team-role">Brand Ambassador</span>
+                    <p>Aisha represents Mont Choffe around the world, sharing our story, values, 
+                        and passion for artisanal chocolate and specialty coffee. 
+                        His refined palate and warm presence embody the essence of our brand.</p>
+                </div>
+            </div>
+
+            <!-- Chocolatier -->
+            <div class="team-profile">
+                <img src="pages-images/about_chocolatier.png" alt="Head Chocolatier">
+                <div class="team-info">
+                    <h3>Lina Moretti</h3>
+                    <span class="team-role">Master Chocolatier</span>
+                    <p>With Swiss discipline and artistry, Matteo perfects the textures, tempering, and flavor notes that define our signature chocolate blends.</p>
+                </div>
+            </div>
+
+            <!-- Coffee Roaster -->
+            <div class="team-profile">
+                <img src="pages-images/about_roaster.png" alt="Lead Coffee Roaster">
+                <div class="team-info">
+                    <h3>Bennet Verdan</h3>
+                    <span class="team-role">Lead Coffee Roaster</span>
+                    <p>Bennet sources ethically grown beans and roast them with precision — unlocking aromas that balance richness, warmth, and natural sweetness.</p>
+                </div>
+            </div>
+
+            <!-- Flavor Alchemist -->
+            <div class="team-profile">
+                <img src="pages-images/about_chemist.png" alt="Flavor Alchemist">
+                <div class="team-info">
+                    <h3>Sofia Laurent</h3>
+                    <span class="team-role">Flavor Alchemist</span>
+                    <p>Sofia blends science and artistry to craft Mont Choffe's signature flavor profiles — 
+                        harmonizing deep chocolate richness with delicate coffee undertones to create 
+                        immersive sensory experiences.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -199,8 +208,8 @@
         <p>&copy; 2025 Mont Choffe. All rights reserved.</p>
     </footer>
 
-    <!-- JS for interactivity -->
-    <script src="main_header.js"></script>
+    <!-- Linking JS for interactivity -->
+    <script src="pages-js/main_page.js"></script>
 
 </body>
 </html>
