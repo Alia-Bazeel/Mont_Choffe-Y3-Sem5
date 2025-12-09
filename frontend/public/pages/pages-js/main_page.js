@@ -99,28 +99,45 @@ window.addEventListener("scroll", function() {
 /* ------------------------------
     5. HEADER SEARCH FUNCTIONALITY
 ------------------------------ */
+/* ------------------------------
+    5. HEADER SEARCH FUNCTIONALITY
+------------------------------ */
 
 // Select search input and button
 const searchInput = document.getElementById('headerSearch');
 const searchBtn = document.getElementById('headerSearchBtn');
 
 if (searchInput && searchBtn) {
-    // Handle search button click
-    searchBtn.addEventListener('click', () => {
-        const query = searchInput.value.trim();
+    // Function to handle search
+    function handleSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+
         if (!query) {
             searchInput.focus();
             return;
         }
-        // Redirect to products page with query param (ready for API integration)
-        window.location.href = `pages/products.html?q=${encodeURIComponent(query)}`;
-    });
 
-    // Allow pressing Enter to trigger search
+        // Redirect based on keywords
+        if (query.includes('about')) {
+            window.location.href = 'pages/about_us.html';
+        } else if (query.includes('products') || query.includes('shop')) {
+            window.location.href = 'pages/products.html';
+        } else if (query.includes('contact')) {
+            window.location.href = 'pages/contact.html';
+        } else {
+            // fallback: go to products page with query
+            window.location.href = `pages/products.html?q=${encodeURIComponent(query)}`;
+        }
+    }
+
+    // Trigger on button click
+    searchBtn.addEventListener('click', handleSearch);
+
+    // Trigger on Enter key
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            searchBtn.click();
+            handleSearch();
         }
     });
 }
