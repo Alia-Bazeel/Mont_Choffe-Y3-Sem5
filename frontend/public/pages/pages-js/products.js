@@ -19,112 +19,146 @@ document.addEventListener("DOMContentLoaded", () => {
 */
 
 /* ==========================================================
-    PRODUCTS PAGE — JAVASCRIPT FILE
-    (Filters • Search • Hover Effects)
+    MONT CHOFFE — PRODUCTS JAVASCRIPT (FINAL VERSION)
+    Loads products from JSON • Filters • Search • Hover
 ========================================================== */
 
-/* -----------------------------------------
-    1. READ SEARCH QUERY FROM URL
------------------------------------------ */
+document.addEventListener("DOMContentLoaded", () => {
 
-// Get "?q=..." from the URL if present
-const urlParams = new URLSearchParams(window.location.search);
-const searchQuery = urlParams.get('q') ? urlParams.get('q').toLowerCase() : "";
+    const productsContainer = document.querySelector(".products-container");
+    let allProducts = []; // stores JSON data
+    let productCards = []; // store created DOM elements
 
-// Select product cards
-const productCards = document.querySelectorAll('.product-card');
+    /* -----------------------------------------
+        1. LOAD PRODUCTS FROM JSON
+    ----------------------------------------- */
+    fetch("products.json")
+        .then(res => res.json())
+        .then(data => {
+            allProducts = data;
+            renderProducts(allProducts);
+            initFiltering();
+            initSearch();
+            initHover();
+        })
+        .catch(err => console.error("Failed to load products.json 😭", err));
 
-// If there is a search query, filter products automatically
-if (searchQuery) {
-    filterProductsBySearch(searchQuery);
-}
 
-/* Function: filters cards using search text */
-function filterProductsBySearch(query) {
-    productCards.forEach(card => {
-        const productName = card.querySelector('.product-name').textContent.toLowerCase();
-        const productDesc = card.querySelector('.product-desc').textContent.toLowerCase();
+    /* -----------------------------------------
+        2. RENDER PRODUCTS TO PAGE
+    ----------------------------------------- */
+    function renderProducts(list) {
+        productsContainer.innerHTML = ""; // clear before adding new items
+        productCards = [];
 
-        if (productName.includes(query) || productDesc.includes(query)) {
-            card.style.display = "flex";  // show matching products
-        } else {
-            card.style.display = "none";  // hide non-matching
-        }
-    });
-}
+        list.forEach(product => {
+            const card = document.createElement("div");
+            card.classList.add("product-card");
+            card.dataset.category = product.category;
 
-/* -----------------------------------------
-    2. CATEGORY FILTER (Chocolate / Honey / Cakes etc.)
------------------------------------------ */
+            card.innerHTML = `
+                <div class="product-img">
+                    <img src="${product.img}" alt="${product.name}">
+                </div>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-desc">${product.desc}</p>
+                <p class="product-price">${product.price.toFixed(2)} د.إ</p>
+                <button class="add-cart" 
+                        data-name="${product.name}" 
+                        data-price="${product.price}">
+                    Add to Cart
+                </button>
+            `;
 
-// Select all category buttons
-const categoryButtons = document.querySelectorAll('.category-btn');
-
-// Add click event to each category
-categoryButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active highlight from all
-        categoryButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active'); // highlight selected category
-
-        const category = btn.dataset.category; // read the category name
-        filterProductsByCategory(category);
-    });
-});
-
-/* Function: filters cards using category attribute */
-function filterProductsByCategory(category) {
-    productCards.forEach(card => {
-        const cardCategory = card.dataset.category;
-
-        if (category === "all" || category === cardCategory) {
-            card.style.display = "flex";  // show correct category
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
-
-/* -----------------------------------------
-    3. ON-PAGE SEARCH INPUT (top search bar)
------------------------------------------ */
-
-const internalSearchInput = document.getElementById("productSearchInput");
-
-if (internalSearchInput) {
-    internalSearchInput.addEventListener("input", () => {
-        const text = internalSearchInput.value.toLowerCase().trim();
-        filterProductsBySearch(text);
-    });
-}
-
-/* -----------------------------------------
-    4. PRODUCT IMAGE HOVER ZOOM EFFECT
------------------------------------------ */
-
-const productImages = document.querySelectorAll('.product-card img');
-
-productImages.forEach(img => {
-    img.addEventListener('mouseover', () => {
-        img.style.transform = "scale(1.08)";
-        img.style.transition = "0.3s ease";
-    });
-
-    img.addEventListener('mouseout', () => {
-        img.style.transform = "scale(1)";
-    });
-});
-
-/* -----------------------------------------
-    5. OPTIONAL: SCROLL TO TOP WHEN CATEGORY CHANGES
------------------------------------------ */
-
-categoryButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+            productsContainer.appendChild(card);
+            productCards.push(card);
         });
-    });
-});
+    }
 
+
+    /* -----------------------------------------
+        3. CATEGORY FILTER
+    ----------------------------------------- */
+    function initFiltering() {
+        const categoryButtons = document.querySelectorAll(".category-btn");
+
+        categoryButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                categoryButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const category = btn.dataset.category;
+                filterByCategory(category);
+
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+    }
+
+    function filterByCategory(category) {
+        productCards.forEach(card => {
+            const cardCat = card.dataset.category;
+
+            if (category === "all" || cardCat === category) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+
+    /* -----------------------------------------
+        4. SEARCH (From URL + On Page)
+    ----------------------------------------- */
+    function initSearch() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get("q") ? urlParams.get("q").toLowerCase() : "";
+
+        const input = document.getElementById("productSearchInput");
+
+        if (searchQuery) {
+            filterBySearch(searchQuery);
+            if (input) input.value = searchQuery;
+        }
+
+        if (input) {
+            input.addEventListener("input", () => {
+                filterBySearch(input.value.toLowerCase());
+            });
+        }
+    }
+
+    function filterBySearch(text) {
+        productCards.forEach(card => {
+            const name = card.querySelector(".product-name").textContent.toLowerCase();
+            const desc = card.querySelector(".product-desc").textContent.toLowerCase();
+
+            if (name.includes(text) || desc.includes(text)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+
+    /* -----------------------------------------
+        5. HOVER ZOOM EFFECT
+    ----------------------------------------- */
+    function initHover() {
+        const imgs = document.querySelectorAll(".product-card img");
+
+        imgs.forEach(img => {
+            img.addEventListener("mouseover", () => {
+                img.style.transform = "scale(1.08)";
+                img.style.transition = "0.3s ease";
+            });
+
+            img.addEventListener("mouseout", () => {
+                img.style.transform = "scale(1)";
+            });
+        });
+    }
+
+});
