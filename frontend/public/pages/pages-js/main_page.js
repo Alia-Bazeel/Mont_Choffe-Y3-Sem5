@@ -97,18 +97,24 @@ window.addEventListener("scroll", function() {
 });
 
 /* ------------------------------
-    5. HEADER SEARCH FUNCTIONALITY
------------------------------- */
-/* ------------------------------
-    5. HEADER SEARCH FUNCTIONALITY
+    5. HEADER SEARCH FUNCTIONALITY (SMART KEYWORD REDIRECT)
 ------------------------------ */
 
-// Select search input and button
 const searchInput = document.getElementById('headerSearch');
 const searchBtn = document.getElementById('headerSearchBtn');
 
 if (searchInput && searchBtn) {
-    // Function to handle search
+    // Define keyword mapping: keywords → target page
+    const pageMap = [
+        { keywords: ['about', 'about us', 'who we are'], page: 'pages/about_us.html' },
+        { keywords: ['products', 'shop', 'catalog'], page: 'pages/products.html' },
+        { keywords: ['contact', 'contact us', 'support'], page: 'pages/contact_us.html' },
+        { keywords: ['career', 'jobs', 'vacancy'], page: 'pages/career.html' },
+        { keywords: ['recipes'], page: 'pages/recipes.html' },
+        { keywords: ['pairings', 'pair our products'], page: 'pages/pairings.html' },
+        { keywords: ['find us', 'locations', 'store'], page: 'pages/findUs.html' }
+    ];
+
     function handleSearch() {
         const query = searchInput.value.trim().toLowerCase();
 
@@ -117,15 +123,18 @@ if (searchInput && searchBtn) {
             return;
         }
 
-        // Redirect based on keywords
-        if (query.includes('about')) {
-            window.location.href = 'pages/about_us.html';
-        } else if (query.includes('products') || query.includes('shop')) {
-            window.location.href = 'pages/products.html';
-        } else if (query.includes('contact')) {
-            window.location.href = 'pages/contact.html';
-        } else {
-            // fallback: go to products page with query
+        // Look for matching page
+        let redirected = false;
+        for (let entry of pageMap) {
+            if (entry.keywords.some(kw => query.includes(kw))) {
+                window.location.href = entry.page;
+                redirected = true;
+                break;
+            }
+        }
+
+        // Fallback: go to products page with query if no match
+        if (!redirected) {
             window.location.href = `pages/products.html?q=${encodeURIComponent(query)}`;
         }
     }
