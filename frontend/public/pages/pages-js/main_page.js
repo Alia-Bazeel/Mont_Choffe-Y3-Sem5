@@ -106,13 +106,13 @@ const searchBtn = document.getElementById('headerSearchBtn');
 if (searchInput && searchBtn) {
     // Keyword mapping: keywords → target page
     const pageMap = [
-        { keywords: ['about', 'about us', 'who we are'], page: 'pages/about_us.html' },
-        { keywords: ['products', 'shop', 'catalog'], page: 'pages/products.html' },
-        { keywords: ['contact', 'contact us', 'support'], page: 'pages/contact_us.html' },
-        { keywords: ['career', 'jobs', 'vacancy'], page: 'pages/career.html' },
-        { keywords: ['recipes'], page: 'pages/recipes.html' },
-        { keywords: ['pairings', 'pair our products'], page: 'pages/pairings.html' },
-        { keywords: ['find us', 'locations', 'store'], page: 'pages/findUs.html' }
+        { keywords: ['about', 'about us', 'who we are'], page: 'about_us.html' },
+        { keywords: ['products', 'shop', 'catalog'], page: 'products.html' },
+        { keywords: ['contact', 'contact us', 'support'], page: 'contact_us.html' },
+        { keywords: ['career', 'jobs', 'vacancy'], page: 'career.html' },
+        { keywords: ['recipes'], page: 'recipes.html' },
+        { keywords: ['pairings', 'pair our products'], page: 'pairings.html' },
+        { keywords: ['find us', 'locations', 'store'], page: 'findUs.html' }
     ];
 
     function handleSearch() {
@@ -152,7 +152,7 @@ if (searchInput && searchBtn) {
 
         // 3. Fallback: go to products page with query
         if (!redirected) {
-            window.location.href = `pages/products.html?q=${encodeURIComponent(query)}`;
+            window.location.href = `products.html?q=${encodeURIComponent(query)}`;
         }
     }
 
