@@ -1,4 +1,36 @@
-/* --- HERO SECTION --- */
+/* Header cart button */
+.header-cart {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.header-cart button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #4B2E2E;
+    position: relative;
+    padding: 6px;
+}
+.header-cart button:focus { outline: none; }
+.cart-count-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.75rem;
+    background: #C48A2A;
+    color: #1c0e0e;
+    font-weight: 700;
+    padding: 0 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
 .products-hero {
     width: 100%;
     height: 55vh;
