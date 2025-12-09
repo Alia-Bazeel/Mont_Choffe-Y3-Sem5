@@ -97,14 +97,14 @@ window.addEventListener("scroll", function() {
 });
 
 /* ------------------------------
-    5. HEADER SEARCH FUNCTIONALITY (SMART KEYWORD REDIRECT)
+    5. HEADER SEARCH FUNCTIONALITY (SMART + DYNAMIC FILTER)
 ------------------------------ */
 
 const searchInput = document.getElementById('headerSearch');
 const searchBtn = document.getElementById('headerSearchBtn');
 
 if (searchInput && searchBtn) {
-    // Define keyword mapping: keywords → target page
+    // Keyword mapping: keywords → target page
     const pageMap = [
         { keywords: ['about', 'about us', 'who we are'], page: 'pages/about_us.html' },
         { keywords: ['products', 'shop', 'catalog'], page: 'pages/products.html' },
@@ -117,13 +117,30 @@ if (searchInput && searchBtn) {
 
     function handleSearch() {
         const query = searchInput.value.trim().toLowerCase();
-
         if (!query) {
             searchInput.focus();
             return;
         }
 
-        // Look for matching page
+        // 1. Check if we are on products page
+        const isProductsPage = window.location.pathname.includes('products.html');
+
+        if (isProductsPage) {
+            // Filter products dynamically
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.product-desc')?.textContent.toLowerCase() || '';
+                if (name.includes(query) || desc.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            return; // don’t redirect when on products page
+        }
+
+        // 2. Redirect based on keywords
         let redirected = false;
         for (let entry of pageMap) {
             if (entry.keywords.some(kw => query.includes(kw))) {
@@ -133,16 +150,16 @@ if (searchInput && searchBtn) {
             }
         }
 
-        // Fallback: go to products page with query if no match
+        // 3. Fallback: go to products page with query
         if (!redirected) {
             window.location.href = `pages/products.html?q=${encodeURIComponent(query)}`;
         }
     }
 
-    // Trigger on button click
+    // Trigger search on button click
     searchBtn.addEventListener('click', handleSearch);
 
-    // Trigger on Enter key
+    // Trigger search on Enter key
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
