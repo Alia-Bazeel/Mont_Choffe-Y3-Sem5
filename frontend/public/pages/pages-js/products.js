@@ -43,10 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".product-card");
         cards.forEach(card => {
             const cardCat = (card.dataset.category || "").toLowerCase();
-            if (category === "all" || category === cardCat || (category === "special" && cardCat === "special")) {
-                card.style.display = "flex";
+            // Add/remove "hidden" class instead of setting display directly
+            if (category === "all" || category === cardCat) {
+                card.classList.remove("hidden");
             } else {
-                card.style.display = "none";
+                card.classList.add("hidden");
             }
         });
     }
