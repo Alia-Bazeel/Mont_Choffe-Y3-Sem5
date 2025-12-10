@@ -1,15 +1,56 @@
-/* Header cart button */
-.header-cart {
-    display: inline-flex;
+/* Header top flex */
+.header-top {
+    display: flex;
     align-items: center;
-    margin-left: 12px;
+    justify-content: space-between; /* spread logo and right side */
+    padding: 0 15px;
+    position: relative;
 }
+/* Right side container: user + cart + hamburger */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+/* User + cart horizontally aligned by default */
+.user-cart-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between user and cart */
+}
+/* Default icon size (not scrolled) */
+.user-icon i,
+.header-cart button i {
+    font-size: 2rem !important; /* bigger icons */
+    transition: all 0.3s ease;
+}
+/* Add top margin only when header is NOT shrunk */
+header:not(.shrink) .user-icon i,
+header:not(.shrink) .header-cart {
+    margin-top: 22px !important; /* applies only before scroll */
+}
+/* Shrink header: hide user icon */
+header.shrink .user-icon {display: none !important;}
+/* Shrink header: move cart next to hamburger & reduce size slightly */
+header.shrink .header-cart {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 60px; /* distance from hamburger */
+    font-size: 1.5rem !important; /* slightly smaller on shrink */
+}
+/* When header shrinks, reset margin */
+header.shrink .user-icon i,
+header.shrink .header-cart {
+    margin-top: 0 !important; /* remove extra spacing */
+}
+/* Cart button styling */
 .header-cart button {
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 1.2rem;
-    color: #4B2E2E;
+    font-size: 1.5rem;
+    color: white;
     position: relative;
     padding: 6px;
 }
@@ -23,7 +64,7 @@
     line-height: 18px;
     border-radius: 50%;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 1rem;
     background: #C48A2A;
     color: #1c0e0e;
     font-weight: 700;
