@@ -1,0 +1,149 @@
+/* ==============================
+   PAIRINGS PAGE MAIN WRAPPER
+   ============================== */
+.pairings-main {
+    max-width: 1200px;       /* Centered container with max width */
+    margin: 175px auto;       /* Space above and below page content */
+    padding: 0 20px;         /* Horizontal padding for smaller screens */
+    text-align: center;      /* Center page title and elements */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* ==============================
+   PAGE TITLE STYLING
+   ============================== */
+.pairings-main h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #ece1d2;          /* Dark chocolate color for heading */
+}
+
+/* ==============================
+   CATEGORY BUTTONS
+   ============================== */
+.pairing-categories {
+    margin-bottom: 40px;
+}
+
+.pairing-categories button {
+    background-color: #fff;          /* White background */
+    color: #3a2f2f;                  /* Dark chocolate text */
+    border: 2px solid #3a2f2f;      /* Outline */
+    padding: 10px 20px;
+    margin: 0 10px 10px 0;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pairing-categories button:hover,
+.pairing-categories button:focus {
+    background-color: #3a2f2f;       /* Dark chocolate fill */
+    color: #fff;                     /* Text turns white */
+}
+
+/* ==============================
+   PAIRINGS SECTION (GRID)
+   ============================== */
+.pairings-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* ==============================
+   PAIR CARD (ONE CARD CONTAINS TWO PRODUCTS)
+   ============================== */
+.pair-card {
+    display: flex;                     /* Side by side products */
+    flex-direction: row;               /* Horizontal layout */
+    gap: 20px;
+    width: 650px;                      /* Fixed width for desktop */
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect on pair card */
+.pair-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ==============================
+   INDIVIDUAL PRODUCT IN PAIR CARD
+   ============================== */
+.pair-card .product {
+    flex: 1;                          /* Equal width for each product */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Product image styling */
+.pair-card .product img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Product name */
+.pair-card .product h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.3rem;
+    color: #3a2f2f;
+    margin-bottom: 10px;
+}
+
+/* Product price */
+.pair-card .product p {
+    font-size: 1rem;
+    color: #5a4b4b;
+    margin-bottom: 15px;
+}
+
+/* ==============================
+   VIEW PRODUCT BUTTON
+   ============================== */
+.view-product-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #3a2f2f;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-product-btn:hover {
+    background-color: #5a4b4b;
+    transform: translateY(-2px);
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+   ============================== */
+@media (max-width: 800px) {
+    .pair-card {
+        flex-direction: column;      /* Stack products vertically on tablet */
+        width: 100%;
+    }
+
+    .pair-card .product {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .pairing-categories button {
+        width: 100%;                 /* Buttons full width on mobile */
+        margin-bottom: 10px;
+    }
+}
