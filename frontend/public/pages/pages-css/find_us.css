@@ -1,0 +1,90 @@
+/* -------------------------
+   FIND US PAGE STYLING
+------------------------- */
+
+.find-us-main {
+    max-width: 1200px;
+    margin: 120px auto 50px;
+    padding: 0 20px;
+    color: #f5f0e1;
+    font-family: 'Roboto', sans-serif;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.intro h2 {
+    font-size: 2.2rem;
+    color: #d2691e;
+    margin-bottom: 10px;
+}
+.intro p {
+    font-size: 1rem;
+    color: #e6d3b3;
+}
+
+/* Filter */
+.store-filter {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.store-filter label {
+    font-weight: 600;
+    margin-right: 10px;
+}
+.store-filter select {
+    padding: 8px 12px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: #3d2323;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Map */
+.map-section {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* Store List */
+.store-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.store-card {
+    background-color: #4B2E2E;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.store-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+.store-card h3 {
+    margin-bottom: 10px;
+    color: #ffb347;
+}
+.store-card p {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: #e6d3b3;
+}
+
+/* Responsive */
+@media(max-width: 768px){
+    .find-us-main {
+        margin-top: 150px;
+        padding: 0 15px;
+    }
+}

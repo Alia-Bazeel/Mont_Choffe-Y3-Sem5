@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Us | Mont Choffe</title>
+    <!-- Linking CSS -->
+    <link rel="stylesheet" href="pages-css/find_us.css">
+    <link rel="stylesheet" href="pages-css/main_page.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER - NAVIGATION -->
+    <header>
+        <!-- TOP ROW: LOGO + NAV -->
+        <div class="header-top">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="../index.html">
+                    <img src="pages-images/logo.png" alt="Mont Choffe Logo" class="logo">
+                </a>
+                <!-- brand-name hidden by default -- shown only when header.shrink -->
+                <h1 class="brand-name">Mont Choffe</h1>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav">
+                <ul class="main-nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about_us.html">About</a></li>
+                    <li class="user-icon">
+                        <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Hamburger -->
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="headerSearch" placeholder="Search..." class="search-bar">
+            <button type="submit" id="headerSearchBtn" class="search-btn">🔍︎</button>
+        </div>
+        
+        <!-- MORE LINKS -->
+        <div class="more-links">
+            <a href="contact_us.html">Contact</a>
+            <a href="career.html">Careers</a>
+            <a href="recipes.html">Recipe Collection</a>
+            <a href="pairings.html">Pair Our Products</a>
+            <a href="findUs.html">Find Us</a>
+        </div>
+        
+        <!-- MOBILE MENU -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about_us.html">About</a></li>
+                <li><a href="contact_us.html">Contact</a></li>
+                <li><a href="career.html">Careers</a></li>
+                <li><a href="recipes.html">Recipe Collection</a></li>
+                <li><a href="pairings.html">Pair Our Products</a></li>
+                <li><a href="findUs.html">Find Us</a></li>
+                <li><a href="login.html">Sign In / Sign Up</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="find-us-main">
+        <section class="intro">
+            <h2>Find Mont Choffe Near You</h2>
+            <p>Explore our locations worldwide and experience the finest handcrafted chocolate and slow-roasted coffee.</p>
+        </section>
+
+        <!-- FILTER -->
+        <section class="store-filter">
+            <label for="regionSelect">Filter by Region:</label>
+            <select id="regionSelect">
+                <option value="all">All Regions</option>
+                <option value="Europe">Europe</option>
+                <option value="Asia">Asia</option>
+                <option value="Middle East">Middle East</option>
+                <option value="Americas">Americas</option>
+            </select>
+        </section>
+
+        <!-- STORE MAP -->
+        <section class="map-section">
+            <iframe 
+                id="storeMap"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019793978808!2d144.956!3d-37.817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43d1df1e6f%3A0x5045675218ce6e0!2sMont%20Choffe!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </section>
+
+        <!-- STORE LIST -->
+        <section class="store-list" id="storeList">
+            <!-- Stores will be dynamically inserted via JS -->
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Mont Choffe. All rights reserved.</p>
+    </footer>
+
+    <!-- Linking JS for interactivity -->
+    <script src="pages-js/main_page.js"></script>
+    <script src="pages-js/find_us.js"></script>
+
+</body>
+</html>
