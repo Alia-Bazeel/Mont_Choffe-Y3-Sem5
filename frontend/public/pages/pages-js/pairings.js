@@ -1,115 +1,110 @@
-// Wait until the DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Get references to each pairings section by their IDs
+    /* ==============================
+       SECTION REFERENCES
+    ============================== */
     const sections = {
+        all: document.getElementById("pairingsAll"),
         coffee: document.getElementById("pairingsCoffee"),
         gift: document.getElementById("pairingsGift"),
         special: document.getElementById("pairingsSpecial")
     };
 
-    // Get all the category buttons
     const buttons = document.querySelectorAll(".pairing-categories button");
 
-    // ----------------------------------------
-    // SECTION SWITCHING LOGIC
-    // When a user clicks a category button, show the corresponding section
-    // ----------------------------------------
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const context = btn.dataset.context; // Get the data-context attribute of the clicked button
-
-            // Loop through all sections
-            Object.keys(sections).forEach(sec => {
-                // Show the selected section, hide the others
-                sections[sec].style.display = (sec === context) ? "flex" : "none";
-            });
-        });
-    });
-
-    // ----------------------------------------
-    // PRODUCT PAIRINGS DATA
-    // Define the pairs for each category
-    // Each pair has two products with name, image, price, and product page URL
-    // ----------------------------------------
+    /* ==============================
+       PAIRINGS DATA
+       Add description for "Why this pairing works"
+    ============================== */
     const pairingsData = {
         coffee: [
             {
-                name1: "Truffle Collection",
-                img1: "pages-images/products/truffle_collection.png",
-                price1: "35.00",
-                url1: "products.html#truffle-collection",
-                name2: "Classic Roast Coffee",
-                img2: "pages-images/products/classic_roast.png",
-                price2: "75.00",
-                url2: "products.html#classic-roast-coffee"
+                left: { name: "Truffle Collection", img: "pages-images/products/truffle_collection.png", price: "35.00", url: "products.html#truffle-collection" },
+                right: { name: "Classic Roast Coffee", img: "pages-images/products/classic_roast.png", price: "75.00", url: "products.html#classic-roast-coffee" },
+                description: "Rich chocolate truffles complement the smooth and bold flavors of classic coffee, creating a luxurious taste experience."
             },
             {
-                name1: "72% Dark Velvet Bar",
-                img1: "pages-images/products/dark_velvet_bar.png",
-                price1: "32.99",
-                url1: "products.html#dark-velvet-bar",
-                name2: "Arabica Gold Roast",
-                img2: "pages-images/products/arabica_gold_roast.png",
-                price2: "49.99",
-                url2: "products.html#arabica-gold-roast"
+                left: { name: "72% Dark Velvet Bar", img: "pages-images/products/dark_velvet_bar.png", price: "32.99", url: "products.html#dark-velvet-bar" },
+                right: { name: "Arabica Gold Roast", img: "pages-images/products/arabica_gold_roast.png", price: "49.99", url: "products.html#arabica-gold-roast" },
+                description: "Intense dark chocolate pairs with aromatic Arabica coffee to enhance depth and richness in every sip and bite."
             }
         ],
         gift: [
             {
-                name1: "Luxury Gift Hamper",
-                img1: "pages-images/products/gift_hamper.png",
-                price1: "140.00",
-                url1: "products.html#luxury-gift-hamper",
-                name2: "Mini Chocolate Gift Set",
-                img2: "pages-images/products/mini_gift_set.png",
-                price2: "59.00",
-                url2: "products.html#mini-chocolate-gift-set"
+                left: { name: "Luxury Gift Hamper", img: "pages-images/products/gift_hamper.png", price: "140.00", url: "products.html#luxury-gift-hamper" },
+                right: { name: "Mini Chocolate Gift Set", img: "pages-images/products/mini_gift_set.png", price: "59.00", url: "products.html#mini-chocolate-gift-set" },
+                description: "A curated gift set combining chocolates and goodies that delight for any special occasion."
             }
         ],
         special: [
             {
-                name1: "Mont Choffe Reserve",
-                img1: "pages-images/products/mont_choffe_reserve.png",
-                price1: "25.50",
-                url1: "products.html#mont-choffe-reserve",
-                name2: "Saffron Delight Box",
-                img2: "pages-images/products/saffron_delight.png",
-                price2: "89.00",
-                url2: "products.html#saffron-delight-box"
+                left: { name: "Mont Choffe Reserve", img: "pages-images/products/mont_choffe_reserve.png", price: "25.50", url: "products.html#mont-choffe-reserve" },
+                right: { name: "Saffron Delight Box", img: "pages-images/products/saffron_delight.png", price: "89.00", url: "products.html#saffron-delight-box" },
+                description: "Exquisite reserve coffee paired with saffron chocolates offers a unique indulgent experience."
             }
         ]
     };
 
-    // ----------------------------------------
-    // GENERATE PAIR CARDS
-    // Loop through each category and inject product pair cards into the corresponding section
-    // ----------------------------------------
-    Object.keys(pairingsData).forEach(context => {
-        pairingsData[context].forEach(pair => {
-            // Create a container div for the pair card
-            const card = document.createElement("div");
-            card.className = "pair-card";
+    /* ==============================
+       CREATE PAIRING ITEM
+    ============================== */
+    function createPairing(pair) {
+        const item = document.createElement("div");
+        item.className = "pairing-item";
 
-            // Insert HTML for the two products in the pair
-            // Replace "Add to Cart" with "View Product" buttons linking to the product page
-            card.innerHTML = `
-                <div class="product">
-                    <img src="${pair.img1}" alt="${pair.name1}">
-                    <h3>${pair.name1}</h3>
-                    <p>${pair.price1} د.إ</p>
-                    <a href="${pair.url1}" class="view-product-btn">View Product</a>
+        item.innerHTML = `
+            <div class="pairing-products">
+                <div class="pairing-product">
+                    <img src="${pair.left.img}" alt="${pair.left.name}">
+                    <h3>${pair.left.name}</h3>
+                    <p>${pair.left.price} د.إ</p>
+                    <a href="${pair.left.url}" class="view-product-btn">View Product</a>
                 </div>
-                <div class="product">
-                    <img src="${pair.img2}" alt="${pair.name2}">
-                    <h3>${pair.name2}</h3>
-                    <p>${pair.price2} د.إ</p>
-                    <a href="${pair.url2}" class="view-product-btn">View Product</a>
-                </div>
-            `;
 
-            // Append the pair card to the correct section
-            sections[context].appendChild(card);
+                <div class="pairing-product">
+                    <img src="${pair.right.img}" alt="${pair.right.name}">
+                    <h3>${pair.right.name}</h3>
+                    <p>${pair.right.price} د.إ</p>
+                    <a href="${pair.right.url}" class="view-product-btn">View Product</a>
+                </div>
+            </div>
+
+            <div class="pairing-description">${pair.description}</div>
+        `;
+
+        return item;
+    }
+
+    /* ==============================
+       INJECT PAIRS INTO ALL SECTIONS
+    ============================== */
+    Object.keys(pairingsData).forEach(category => {
+        pairingsData[category].forEach(pair => {
+            const item = createPairing(pair);
+
+            // Append to category-specific section
+            sections[category].appendChild(item);
+
+            // Also append to 'all' section
+            sections.all.appendChild(item.cloneNode(true));
+        });
+    });
+
+    /* ==============================
+       CATEGORY BUTTON SWITCHING
+    ============================== */
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const context = button.dataset.context;
+
+            // Highlight active button
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // Show selected section, hide others
+            Object.keys(sections).forEach(key => {
+                sections[key].style.display = key === context ? "grid" : "none";
+            });
         });
     });
 

@@ -75,27 +75,32 @@
             </ul>
         </div>
     </header>
-
-    <!-- MAIN CONTENT -->
+    
+    <!-- PAIRINGS CONTENT -->
     <main class="pairings-main">
-        <h2>Pair Our Products</h2>
+
+        <!-- Intro Section -->
+        <section class="pairings-intro">
+            <h2>Perfect Pairings</h2>
+            <p>Thoughtfully curated combinations designed to elevate flavor, balance richness, and create unforgettable tasting moments.</p>
+        </section>
+
+        <!-- Category Buttons -->
         <nav class="pairing-categories">
-            <button data-context="coffee">Coffee + Chocolate</button>
+            <button class="active" data-context="all">All Pairs</button>
+            <button data-context="coffee">Chocolate & Coffee</button>
             <button data-context="gift">Gift Pairings</button>
-            <button data-context="special">Special Pairings</button>
+            <button data-context="special">Special Editions</button>
         </nav>
-        
-        <div id="pairingsCoffee" class="pairings-section">
-            <!-- JS inject coffee‑chocolate pair cards here -->
-        </div>
-        
-        <div id="pairingsGift" class="pairings-section" style="display:none">
-            <!-- JS inject gift‑related pairs -->
-        </div>
-        
-        <div id="pairingsSpecial" class="pairings-section" style="display:none">
-            <!-- JS inject special‑item pairs -->
-        </div>
+
+        <!-- Pairings Wrapper -->
+        <section class="pairings-wrapper">
+            <div id="pairingsAll" class="pairings-grid"></div>
+            <div id="pairingsCoffee" class="pairings-grid" style="display:none"></div>
+            <div id="pairingsGift" class="pairings-grid" style="display:none"></div>
+            <div id="pairingsSpecial" class="pairings-grid" style="display:none"></div>
+        </section>
+
     </main>
 
     <!-- FOOTER -->
