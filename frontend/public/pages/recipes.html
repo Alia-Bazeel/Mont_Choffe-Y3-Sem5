@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes | Mont Choffe</title>
+    <!-- Linking CSS -->
+    <link rel="stylesheet" href="pages-css/recipes.css">
+    <link rel="stylesheet" href="pages-css/main_page.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER - NAVIGATION -->
+    <header>
+        <!-- TOP ROW: LOGO + NAV -->
+        <div class="header-top">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="../index.html">
+                    <img src="pages-images/logo.png" alt="Mont Choffe Logo" class="logo">
+                </a>
+                <!-- brand-name hidden by default -- shown only when header.shrink -->
+                <h1 class="brand-name">Mont Choffe</h1>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav">
+                <ul class="main-nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about_us.html">About</a></li>
+                    <li class="user-icon">
+                        <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Hamburger -->
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="headerSearch" placeholder="Search..." class="search-bar">
+            <button type="submit" id="headerSearchBtn" class="search-btn">🔍︎</button>
+        </div>
+        
+        <!-- MORE LINKS -->
+        <div class="more-links">
+            <a href="contact_us.html">Contact</a>
+            <a href="career.html">Careers</a>
+            <a href="recipes.html">Recipe Collection</a>
+            <a href="pairings.html">Pair Our Products</a>
+            <a href="findUs.html">Find Us</a>
+        </div>
+        
+        <!-- MOBILE MENU -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about_us.html">About</a></li>
+                <li><a href="contact_us.html">Contact</a></li>
+                <li><a href="career.html">Careers</a></li>
+                <li><a href="recipes.html">Recipe Collection</a></li>
+                <li><a href="pairings.html">Pair Our Products</a></li>
+                <li><a href="findUs.html">Find Us</a></li>
+                <li><a href="login.html">Sign In / Sign Up</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="recipes-hero">
+        <h2>Mont Choffe Recipe Collection</h2>
+        <p>Discover delicious ways to enjoy our chocolates, coffees, and gift sets.</p>
+    </section>
+
+    <!-- FILTER BUTTONS -->
+    <section class="recipe-filters">
+        <button class="filter-btn" data-category="all">All</button>
+        <button class="filter-btn" data-category="chocolate">Chocolate</button>
+        <button class="filter-btn" data-category="coffee">Coffee</button>
+        <button class="filter-btn" data-category="gift">Gift Ideas</button>
+    </section>
+
+    <!-- RECIPE COLLECTION -->
+    <section class="recipe-collection">
+
+        <!-- Chocolate Recipe 1 -->
+        <div class="recipe-card" data-category="chocolate">
+            <img src="pages-images/recipes/Chocolate-Truffle-Mousse.png" alt="Chocolate Truffle Mousse">
+            <h3>Chocolate Truffle Mousse</h3>
+            <p>Rich, airy mousse made with our Truffle Collection for a luxurious dessert.</p>
+            <p class="products-used">Products used: <a href="products.html#truffle">Truffle Collection</a>, <a href="products.html#dark_velvet">72% Dark Velvet Bar</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Gift Recipe 1 -->
+        <div class="recipe-card" data-category="gift">
+            <img src="pages-images/recipes/Chocolate-Gift-Box-Ideas.png" alt="Chocolate Gift Box">
+            <h3>Chocolate Gift Box Ideas</h3>
+            <p>Elegant gift presentation using Mont Choffe chocolates for friends & family.</p>
+            <p class="products-used">Products used: <a href="products.html#bespoke">Bespoke Artisan Collection</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Coffee Recipe 1 -->
+        <div class="recipe-card" data-category="coffee">
+            <img src="pages-images/recipes/Caramel-Latte.png" alt="Caramel Latte">
+            <h3>Caramel Latte</h3>
+            <p>Smooth latte with a caramel twist, brewed from Arabica Gold Roast.</p>
+            <p class="products-used">Products used: <a href="products.html#arabica_gold">Arabica Gold Roast</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Gift Recipe 2 -->
+        <div class="recipe-card" data-category="gift">
+            <img src="pages-images/recipes//Mini-Chocolate-Gift-Set.png" alt="Mini Chocolate Gift Set">
+            <h3>Mini Chocolate Gift Set</h3>
+            <p>Create small curated chocolate gift sets using our Mini Chocolate Gift Set.</p>
+            <p class="products-used">Products used: <a href="products.html#mini_gift_set">Mini Chocolate Gift Set</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Coffee Recipe 2 -->
+        <div class="recipe-card" data-category="coffee">
+            <img src="pages-images/recipes/Espresso-Mocha.png" alt="Espresso Mocha">
+            <h3>Espresso Mocha</h3>
+            <p>Bold espresso blended with chocolate for a rich mocha drink.</p>
+            <p class="products-used">Products used: <a href="products.html#signature_espresso">Signature Espresso Blend</a>, <a href="products.html#dark_velvet">72% Dark Velvet Bar</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Chocolate Recipe 2 -->
+        <div class="recipe-card" data-category="chocolate">
+            <img src="pages-images/recipes/Rose-Dark-Chocolate-Mousse.png" alt="Rose Dark Chocolate Mousse">
+            <h3>Rose Dark Chocolate Mousse</h3>
+            <p>Floral twist to a classic mousse using Rose Infused Dark Chocolate.</p>
+            <p class="products-used">Products used: <a href="products.html#rose_dark">Rose Infused Dark Chocolate</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Coffee Recipe 3 -->
+        <div class="recipe-card" data-category="coffee">
+            <img src="pages-images/recipes/Cold-Brew-Affogato.png" alt="Cold Brew Affogato">
+            <h3>Cold Brew Affogato</h3>
+            <p>Refreshing affogato using Cold Brew Concentrate and a scoop of vanilla ice cream.</p>
+            <p class="products-used">Products used: <a href="products.html#cold_brew">Cold Brew Concentrate</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Chocolate Recipe 3 -->
+        <div class="recipe-card" data-category="chocolate">
+            <img src="pages-images/recipes/Almond-Crunch-Chocolate-Bark.png" alt="Almond Crunch Chocolate Bark">
+            <h3>Almond Crunch Chocolate Bark</h3>
+            <p>Crunchy, nutty chocolate bark using Almond Crunch Bar pieces.</p>
+            <p class="products-used">Products used: <a href="products.html#almond_crunch">Almond Crunch Bar</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+        <!-- Gift Recipe 3 -->
+        <div class="recipe-card" data-category="gift">
+            <img src="pages-images/recipes/Luxury-Gift-Hamper.png" alt="Luxury Gift Hamper">
+            <h3>Luxury Gift Hamper</h3>
+            <p>Combine chocolate and coffee products to create a premium gift hamper.</p>
+            <p class="products-used">Products used: <a href="products.html#luxury_hamper">Luxury Gift Hamper</a></p>
+            <button class="view-recipe">View Recipe</button>
+        </div>
+
+    </section>
+
+    <!-- RECIPE MODAL -->
+    <div class="recipe-modal" id="recipeModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">Recipe Title</h3>
+            <p id="modalDescription">Full recipe instructions will appear here.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Mont Choffe. All rights reserved.</p>
+    </footer>
+
+    <!-- Linking JS for interactivity -->
+    <script src="pages-js/main_page.js"></script>
+    <script src="pages-js/recipes.js"></script>
+
+</body>
+</html>

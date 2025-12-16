@@ -1,0 +1,155 @@
+/* ==============================
+   RECIPES PAGE STYLING - MONT CHOFFE
+============================== */
+
+/* HERO SECTION */
+.recipes-hero {
+    text-align: center;
+    /*background-color: #4B2E2E;*/
+    background: url("css-bg/products_bg.png") center/cover no-repeat;
+    color: #fff;
+    padding: 60px 20px 40px;
+    margin-top: 125px;
+}
+.recipes-hero h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+.recipes-hero p {
+    font-size: 1rem;
+    opacity: 0.85;
+}
+
+/* FILTER BUTTONS */
+.recipe-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+.recipe-filters .filter-btn {
+    padding: 10px 20px;
+    background-color: #d2691e;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.recipe-filters .filter-btn:hover,
+.recipe-filters .filter-btn.active {
+    background-color: #ffb347;
+    color: #1c0e0e;
+}
+
+/* RECIPE CARDS */
+.recipe-collection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1300px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+.recipe-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.recipe-card img {
+    width: 100%;
+    display: block;
+}
+.recipe-card h3 {
+    font-size: 1.2rem;
+    color: #4B2E2E;
+    font-weight: bold;
+    margin: 15px 0 10px;
+}
+.recipe-card p {
+    font-size: 0.95rem;
+    padding: 0 15px;
+    color: #6b4a36;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+.recipe-card .products-used {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.recipe-card .products-used a {
+    color: #C48A2A;
+}
+.recipe-card .view-recipe {
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #4B2E2E;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.recipe-card .view-recipe:hover {
+    background-color: #ffb347;
+    color: #1c0e0e;
+}
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* MODAL */
+.recipe-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(28,14,14,0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background-color: #362020;
+    padding: 30px 20px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    color: #fff;
+    text-align: left;
+    position: relative;
+}
+.modal-content h3 {
+    margin-bottom: 15px;
+}
+.modal-content p {
+    line-height: 1.5;
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .recipe-collection {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 480px) {
+    .recipe-collection {
+        grid-template-columns: 1fr;
+    }
+}
