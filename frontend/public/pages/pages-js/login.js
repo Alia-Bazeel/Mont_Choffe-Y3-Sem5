@@ -1,12 +1,12 @@
 /* 1. SELECT ELEMENTS */
-const toggleLink = document.getElementById('toggleLink');       // link to toggle login/signup
-const toggleText = document.getElementById('toggleText');       // text before toggle link
-const formTitle = document.getElementById('formTitle');         // form heading (Login / Sign Up)
-const authBtn = document.getElementById('authBtn');             // submit button
-const nameInput = document.getElementById('name');              // name field (for signup)
-const authForm = document.getElementById('authForm');           // login/signup form
-const errorMessage = document.getElementById('errorMessage');   // error message display
-const statusMessage = document.getElementById('status-message'); // for Google login status
+const toggleLink = document.getElementById('toggleLink');       
+const toggleText = document.getElementById('toggleText');       
+const formTitle = document.getElementById('formTitle');         
+const authBtn = document.getElementById('authBtn');             
+const nameInput = document.getElementById('name');              
+const authForm = document.getElementById('authForm');           
+const errorMessage = document.getElementById('errorMessage');   
+const statusMessage = document.getElementById('status-message'); 
 
 let isLogin = true; // true = login mode, false = signup mode
 
@@ -40,53 +40,44 @@ authForm.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value.trim();
     const name = document.getElementById('name').value.trim();
 
-    if (isLogin) {
-        // --- LOGIN FLOW ---
-        try {
-            const res = await fetch('/api/users/login', {
+    try {
+        let res, data;
+
+        if (isLogin) {
+            // LOGIN
+            res = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                localStorage.setItem('token', data.token); 
-                localStorage.setItem('user', JSON.stringify(data.user));
-                alert('Login successful!');
-                window.location.href = 'index.html';
-            } else {
-                errorMessage.textContent = data.error;
-            }
-
-        } catch (error) {
-            console.error(error);
-            errorMessage.textContent = 'Server error. Try again later.';
-        }
-
-    } else {
-        // --- SIGN UP FLOW ---
-        try {
-            const res = await fetch('/api/users', {
+        } else {
+            // SIGNUP (public route)
+            res = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password })
             });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                alert('Sign Up successful! Please login.');
-                toggleLink.click(); 
-            } else {
-                errorMessage.textContent = data.error;
-            }
-
-        } catch (error) {
-            console.error(error);
-            errorMessage.textContent = 'Server error. Try again later.';
         }
+
+        data = await res.json();
+
+        if (res.ok) {
+            if (isLogin) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                alert('Login successful!');
+            } else {
+                alert('Sign Up successful! Please login.');
+                toggleLink.click(); // switch to login
+            }
+            window.location.href = 'index.html';
+        } else {
+            errorMessage.textContent = data.error || 'Something went wrong';
+        }
+
+    } catch (err) {
+        console.error(err);
+        errorMessage.textContent = 'Server error. Try again later.';
     }
 });
 
@@ -94,10 +85,9 @@ authForm.addEventListener('submit', async (e) => {
 function handleCredentialResponse(response) {
     const idToken = response.credential;
 
-    statusMessage.innerHTML = 'Received Google token. Verifying...';
+    statusMessage.innerHTML = 'Verifying Google token...';
     statusMessage.style.color = 'blue';
 
-    // Send Google ID token to backend to get your JWT
     fetch('/api/users/google-auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -106,13 +96,13 @@ function handleCredentialResponse(response) {
     .then(res => res.json())
     .then(data => {
         if (data.jwt) {
-            localStorage.setItem('token', data.jwt); // backend JWT
+            localStorage.setItem('token', data.jwt);
             localStorage.setItem('user', JSON.stringify(data.user));
             statusMessage.innerHTML = 'Google login successful!';
             statusMessage.style.color = 'green';
-            window.location.href = 'index.html'; // redirect to dashboard
+            window.location.href = 'index.html';
         } else {
-            statusMessage.innerHTML = 'Google login failed.';
+            statusMessage.innerHTML = data.error || 'Google login failed';
             statusMessage.style.color = 'red';
         }
     })
@@ -123,5 +113,5 @@ function handleCredentialResponse(response) {
     });
 }
 
-// Make sure Google button callback is registered
+// Register Google callback globally
 window.handleCredentialResponse = handleCredentialResponse;
