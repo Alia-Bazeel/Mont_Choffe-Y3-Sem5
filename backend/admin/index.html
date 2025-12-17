@@ -3,26 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Mont Choffe Admin | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="admin-container">
-        <h2>Admin Panel</h2>
-        <a href="add-user.html">Add User</a>
+    <div class="container">
+        <h1>Mont Choffe Admin Dashboard</h1>
+        <button id="logoutBtn">Logout</button>
+        <h2>Users</h2>
         <table>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="userTableBody">
-                <!-- User rows will be inserted here -->
+            <tbody id="userTable">
+                <!-- Users will be dynamically populated here -->
             </tbody>
         </table>
+        <button onclick="window.location.href='add-user.html'">Add New User</button>
     </div>
     <script src="script.js"></script>
+    <script>
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            });
+        }
+    </script>
 </body>
 </html>

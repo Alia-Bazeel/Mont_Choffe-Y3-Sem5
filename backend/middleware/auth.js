@@ -1,13 +1,34 @@
-module.exports = (req, res, next) => {
-    const auth = { login: 'admin', password: 'admin' }; // Change this to a secure method
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
-    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+const authMiddleware = async (req, res, next) => {
+    try {
+        // Get token from header
+        const authHeader = req.headers.authorization;
 
-    if (login && password && login === auth.login && password === auth.password) {
-        return next();
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'No token provided' });
+        }
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Find user from token
+        const user = await User.findById(decoded.id).select('-password');
+
+        if (!user) {
+            return res.status(401).json({ error: 'User not found' });
+        }
+
+        // Attach user to request
+        req.user = user;
+        next();
+
+    } catch (error) {
+        return res.status(401).json({ error: 'Invalid or expired token' });
     }
-
-    res.set('WWW-Authenticate', 'Basic realm="401"');
-    res.status(401).send('Authentication required.');
 };
+
+module.exports = authMiddleware;

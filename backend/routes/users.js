@@ -1,57 +1,158 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 
-// Create a new user
-router.post('/', async (req, res) => {
-    const { name, email, password } = req.body;
+/* USER LOGIN (PUBLIC) */
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+
     try {
-        const newUser = new User({ name, email, password });
-        await newUser.save();
-        res.status(201).json(newUser);
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const isMatch = await user.comparePassword(password);
+
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const token = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '2h' }
+        );
+
+        res.json({
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
-// Get all users
-router.get('/', async (req, res) => {
+/* ADMIN-ONLY MIDDLEWARE */
+
+const adminOnly = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ error: 'Admin access required' });
+    }
+    next();
+};
+
+/* CREATE USER (ADMIN) */
+
+router.post('/', auth, adminOnly, async (req, res) => {
+    const { name, email, password, role } = req.body;
+
+    if (!name || !email || !password) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
     try {
-        const users = await User.find();
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+
+        const newUser = new User({
+            name,
+            email,
+            password,
+            role: role || 'user'
+        });
+
+        await newUser.save();
+
+        const { password: _, ...userData } = newUser.toObject();
+        res.status(201).json(userData);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/* GET ALL USERS (ADMIN) */
+
+router.get('/', auth, adminOnly, async (req, res) => {
+    try {
+        const users = await User.find().select('-password');
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get a user by ID
-router.get('/:id', async (req, res) => {
+/* GET SINGLE USER (ADMIN) */
+
+router.get('/:id', auth, adminOnly, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).select('-password');
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/* UPDATE USER (ADMIN) */
+
+router.put('/:id', auth, adminOnly, async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        if (!user) return res.status(404).json({ error: 'User not found' });
-        res.json(user);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (req.body.name) user.name = req.body.name;
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.role) user.role = req.body.role;
+        if (req.body.password) user.password = req.body.password;
+
+        await user.save();
+
+        const { password: _, ...userData } = user.toObject();
+        res.json(userData);
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Update a user
-router.put('/:id', async (req, res) => {
-    try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!user) return res.status(404).json({ error: 'User not found' });
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+/* DELETE USER (ADMIN) */
 
-// Delete a user
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, adminOnly, async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        if (!user) return res.status(404).json({ error: 'User not found' });
-        res.json({ message: 'User deleted' });
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'User deleted successfully' });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

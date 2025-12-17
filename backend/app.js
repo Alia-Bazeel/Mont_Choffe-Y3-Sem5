@@ -1,44 +1,40 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const path = require('path');
-const User = require('./models/user');
-const auth = require('./middleware/auth');
+require('dotenv').config(); // Load environment variables
+
+const userRoutes = require('./routes/users');
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+/* MIDDLEWARE */
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/mywebapp', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+// Parse incoming JSON data
+app.use(express.json());
 
-// Routes
-const users = require('./routes/users');
-app.use('/users', users);
+// Serve admin frontend files
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
-// Admin routes
-app.use('/admin', auth, express.static(path.join(__dirname, 'public/admin')));
+/* DATABASE CONNECTION */
 
-// Login route
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.findOne({ email, password });
-        if (user) {
-            res.json({ message: 'Login successful' });
-        } else {
-            res.status(401).json({ error: 'Invalid email or password' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('✅ MongoDB connected (Mont Choffe)'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
+
+/* ROUTES */
+
+// User-related API routes
+app.use('/api/users', userRoutes);
+
+// Health check (optional but professional)
+app.get('/', (req, res) => {
+    res.send('Mont Choffe Backend is running ☕🍫');
 });
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+/* SERVER START */
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
