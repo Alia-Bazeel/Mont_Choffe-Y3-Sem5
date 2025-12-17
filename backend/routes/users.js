@@ -158,4 +158,91 @@ router.delete('/:id', auth, adminOnly, async (req, res) => {
     }
 });
 
+/* GOOGLE AUTH */
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+router.post('/google-auth', async (req, res) => {
+    const { token } = req.body;
+
+    if (!token) {
+        return res.status(400).json({ error: 'Google token is required' });
+    }
+
+    try {
+        // Verify the token with Google
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID
+        });
+
+        const payload = ticket.getPayload();
+        const email = payload.email;
+        const name = payload.name;
+
+        // Check if user already exists
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            // Create a new user with random password (not used)
+            user = new User({
+                name,
+                email,
+                password: Math.random().toString(36).slice(-10), // random
+                role: 'user'
+            });
+            await user.save();
+        }
+
+        // Create JWT for your backend
+        const jwt = require('jsonwebtoken');
+        const tokenJWT = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '2h' }
+        );
+
+        res.json({
+            jwt: tokenJWT,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error('Google Auth error:', error);
+        res.status(500).json({ error: 'Google authentication failed' });
+    }
+});
+
+/* PUBLIC SIGNUP (FRONTEND USERS) */
+router.post('/signup', async (req, res) => {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    try {
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+
+        // Create new user with role 'user'
+        const newUser = new User({ name, email, password, role: 'user' });
+        await newUser.save();
+
+        const { password: _, ...userData } = newUser.toObject();
+        res.status(201).json({ message: 'Signup successful', user: userData });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

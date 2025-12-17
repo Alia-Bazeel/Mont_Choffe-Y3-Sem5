@@ -20,8 +20,8 @@ app.use('/admin', express.static(path.join(__dirname, 'admin')));
 /* DATABASE CONNECTION */
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB connected (Mont Choffe)'))
-    .catch(err => console.error('❌ MongoDB connection error:', err));
+    .then(() => console.log('MongoDB connected (Mont Choffe)'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 /* ROUTES */
 
@@ -30,11 +30,11 @@ app.use('/api/users', userRoutes);
 
 // Health check (optional but professional)
 app.get('/', (req, res) => {
-    res.send('Mont Choffe Backend is running ☕🍫');
+    res.send('Mont Choffe Backend is running');
 });
 
 /* SERVER START */
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
