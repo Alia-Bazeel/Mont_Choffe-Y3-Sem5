@@ -167,3 +167,75 @@ if (searchInput && searchBtn) {
         }
     });
 }
+
+/* ------------------------------
+    6. USER ICON DROPDOWN + AUTH STATE
+------------------------------ */
+
+// Select dropdown elements
+const userIcon = document.querySelector('.user-icon');
+const userToggle = document.getElementById('userToggle');
+const userMenu = document.getElementById('userMenu');
+
+const usernameDisplay = document.getElementById('usernameDisplay');
+const signInLink = document.getElementById('signIn');
+const logoutBtn = document.getElementById('logoutBtn');
+const deleteAccBtn = document.getElementById('deleteAccBtn');
+
+// Safety check (prevents errors on pages without user icon)
+if (userIcon && userToggle && userMenu) {
+
+    // Get username from localStorage (set during login/signup)
+    let username = localStorage.getItem('username');
+
+    // Update dropdown UI based on login state
+    function updateUserMenu() {
+        if (username) {
+            usernameDisplay.textContent = `Hello, ${username}`;
+            if(signInLink) signInLink.parentElement.style.display = 'none';
+            if(logoutBtn) logoutBtn.parentElement.style.display = 'block';
+            if(deleteAccBtn) deleteAccBtn.parentElement.style.display = 'block';
+        } else {
+            usernameDisplay.textContent = 'Hello, Guest';
+            if(signInLink) signInLink.parentElement.style.display = 'block';
+            if(logoutBtn) logoutBtn.parentElement.style.display = 'none';
+            if(deleteAccBtn) deleteAccBtn.parentElement.style.display = 'none';
+        }
+    }
+
+    // Initial UI update
+    updateUserMenu();
+
+    // Toggle dropdown on user icon click
+    userToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        userIcon.classList.toggle('show-menu');
+    });
+
+    // Logout logic
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('username');
+        username = null;
+        updateUserMenu();
+        userIcon.classList.remove('show-menu');
+    });
+
+    // Delete account logic (frontend simulation)
+    deleteAccBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete your account?')) {
+            localStorage.removeItem('username');
+            username = null;
+            updateUserMenu();
+            userIcon.classList.remove('show-menu');
+            alert('Account deleted successfully!');
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!userIcon.contains(e.target)) {
+            userIcon.classList.remove('show-menu');
+        }
+    });
+}
+
