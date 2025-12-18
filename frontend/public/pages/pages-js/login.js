@@ -1,5 +1,4 @@
 /* 1. SELECT ELEMENTS */
-const previousPage = localStorage.getItem('previousPage') || document.referrer || 'index.html';
 const toggleLink = document.getElementById('toggleLink');       
 const toggleText = document.getElementById('toggleText');       
 const formTitle = document.getElementById('formTitle');         
@@ -10,6 +9,10 @@ const errorMessage = document.getElementById('errorMessage');
 const statusMessage = document.getElementById('status-message'); 
 
 let isLogin = true;
+
+/* 1a. GET REDIRECT PARAM */
+const urlParams = new URLSearchParams(window.location.search);
+const redirectTo = urlParams.get('redirect') || localStorage.getItem('previousPage') || 'index.html';
 
 /* 2. TOGGLE LOGIN / SIGNUP FORM */
 toggleLink.addEventListener('click', (e) => {
@@ -70,8 +73,8 @@ authForm.addEventListener('submit', async (e) => {
                 toggleLink.click();
                 return;
             }
-            // Redirect to previous page
-            window.location.href = previousPage;
+            // Redirect to the page specified in query param or previous page
+            window.location.href = redirectTo;
         } else {
             errorMessage.textContent = data.error || 'Something went wrong';
         }
@@ -101,7 +104,7 @@ function handleCredentialResponse(response) {
             localStorage.setItem('user', JSON.stringify(data.user));
             statusMessage.innerHTML = 'Google login successful!';
             statusMessage.style.color = 'green';
-            window.location.href = previousPage; // redirect properly
+            window.location.href = redirectTo;
         } else {
             statusMessage.innerHTML = data.error || 'Google login failed';
             statusMessage.style.color = 'red';
@@ -114,5 +117,5 @@ function handleCredentialResponse(response) {
     });
 }
 
-// Register Google callback globally
+/* 5. REGISTER GOOGLE CALLBACK */
 window.handleCredentialResponse = handleCredentialResponse;
