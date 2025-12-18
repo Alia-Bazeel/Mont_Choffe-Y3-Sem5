@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const cart = JSON.parse(localStorage.getItem("montCart")) || [];
 
     // -----------------------------
+    // LOGIN CHECK
+    // -----------------------------
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+        // Redirect to login if not logged in, with return to checkout
+        window.location.href = `login.html?redirect=${encodeURIComponent(window.location.href)}`;
+        return; // stop further execution
+    }
+
+    // -----------------------------
     // RENDER CHECKOUT
     // -----------------------------
     function renderCheckout() {
@@ -45,11 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h2>Customer Details</h2>
 
                 <div class="form-row">
-                    <input type="text" id="custName" placeholder="Full Name">
+                    <input type="text" id="custName" placeholder="Full Name" value="${user.name || ''}">
                     <input type="tel" id="custPhone" placeholder="Phone Number">
                 </div>
 
-                <input type="email" id="custEmail" placeholder="Email" style="margin-top:10px;width:100%;">
+                <input type="email" id="custEmail" placeholder="Email" style="margin-top:10px;width:100%;" value="${user.email || ''}">
 
                 <div class="address-choice">
                     <label>
