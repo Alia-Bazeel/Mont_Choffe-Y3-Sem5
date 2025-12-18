@@ -63,8 +63,15 @@
 
             <div class="header-right">
                 <div class="user-cart-wrapper">
+                    <!-- User Icon with Dropdown -->
                     <div class="user-icon">
-                        <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                        <a href="#" id="userToggle"><i class="fa-regular fa-user"></i></a>
+                        <ul class="dropdown-menu" id="userMenu">
+                            <li id="usernameDisplay">Hello, Guest</li>
+                            <li><a href="login.html" id="signIn">Sign In</a></li>
+                            <li><button id="logoutBtn">Logout</button></li>
+                            <li><button id="deleteAccBtn">Delete Account</button></li>
+                        </ul>
                     </div>
                     <!-- Header cart button -->
                     <div class="header-cart">
