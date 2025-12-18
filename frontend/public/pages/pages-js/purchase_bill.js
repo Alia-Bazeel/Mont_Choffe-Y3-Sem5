@@ -12,9 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-        // Redirect to login if not logged in, with return to checkout
         window.location.href = `login.html?redirect=${encodeURIComponent(window.location.href)}`;
-        return; // stop further execution
+        return;
     }
 
     // -----------------------------
@@ -100,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------
     orderSection.addEventListener("click", (e) => {
 
-        // PLACE ORDER
         if (e.target.id === "placeOrderBtn") {
             const name = document.getElementById("custName").value.trim();
             const phone = document.getElementById("custPhone").value.trim();
@@ -118,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>We will contact you shortly.</p>
                     <a href="products.html">Continue Shopping</a>
                 </div>`;
+
             emailjs.send("SERVICE_ID", "TEMPLATE_ID", {
                 customer_name: name,
                 customer_phone: phone,
@@ -127,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // DETECT LOCATION
         if (e.target.id === "detectLocationBtn") {
 
             const autoBox = document.getElementById("autoAddress");
@@ -146,14 +144,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
 
-                    // Map preview
                     mapFrame.src =
                         `https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.01}%2C${lat-0.01}%2C${lon+0.01}%2C${lat+0.01}&layer=mapnik&marker=${lat}%2C${lon}`;
                     mapPreview.style.display = "block";
 
                     autoBox.value = "Detecting address...";
 
-                    // Reverse Geocoding (OpenStreetMap – FREE)
                     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                         .then(res => res.json())
                         .then(data => {
