@@ -27,11 +27,17 @@
             <!-- Main Navigation -->
             <nav class="main-nav">
                 <ul class="main-nav-links">
-                    <li><a href="#hero-section">Home</a></li>
+                    <!--<li><a href="#hero-section">Home</a></li>-->
                     <li><a href="#products">Products</a></li>
                     <li><a href="#about">About</a></li>
-                    <li class="user-icon">
-                        <a href="pages/login.html"><i class="fa-regular fa-user"></i></a>
+                    <li class="user-icon dropdown">
+                        <a href="#" id="userToggle"><i class="fa-regular fa-user"></i></a>
+                        <ul class="dropdown-menu" id="userMenu">
+                            <li id="usernameDisplay">Hello, Guest</li>
+                            <li><a href="pages/login.html" id="signIn">Sign In / Sign Up</a></li>
+                            <li><a href="#" id="logoutBtn">Logout</a></li>
+                            <li><a href="#" id="deleteAccBtn">Delete Account</a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

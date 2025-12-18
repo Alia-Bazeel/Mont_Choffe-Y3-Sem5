@@ -68,7 +68,7 @@ header {
 
 /* Main navigation */
 .main-nav-links {
-    margin-top: 0px;
+    margin-top: 25px;
     display: flex;
     list-style: none;
     align-items: center;
@@ -77,19 +77,74 @@ header {
 .main-nav-links li a {
     color: white;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 .main-nav-links li a:hover { color: #c96c20; }
-/* user icon */
-.user-icon i { font-size: 1.3rem; }
-.user-icon a i {
-    font-size: 1.3rem;
-    color: white;
-    transition: color 0.3s ease;
+
+/* user icon drop-down menu */
+.user-icon {position: relative;}
+.user-icon i { font-size: 1.3rem; } 
+.user-icon a i { font-size: 1.3rem; color: white; transition: color 0.3s ease; } 
+.user-icon a i:hover { color: #c96c20; }
+/* Dropdown container */
+.user-icon .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px); /* perfectly aligns below icon */
+    right: 0;
+    background-color: #1c0e0e;          /* matches header.shrink */
+    border: 1px solid #3a2a2a;
+    border-radius: 8px;
+    min-width: 220px;
+    padding: 6px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    z-index: 1200;
 }
-.user-icon a i:hover {
-    color: #c96c20;
+/* Dropdown items */
+.user-icon .dropdown-menu {
+    text-align: left;
+    list-style: none;  /* remove bullets */
+    padding: 0;        /* remove default padding */
+    margin: 0;         /* remove default margin */
+    min-width: 180px;  /* reduce if your current dropdown is too wide */
+    max-width: 220px;
 }
+.user-icon .dropdown-menu li {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #f0e6e6;
+    cursor: pointer;
+}
+/* Hover effect */
+.user-icon .dropdown-menu li:hover {
+    background-color: #3a2a2a;
+    color: #ffb347;
+}
+/* Fix invisible link text inside dropdown */
+.user-icon .dropdown-menu li a {
+    color: #f0e6e6;
+    font-size: 0.95rem;        /* override nav font-size */
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    white-space: nowrap;       /* prevent wrapping/cut */
+}
+/* Hover effect for links */
+.user-icon .dropdown-menu li a:hover {color: #ffb347;}
+/* Username display (non-clickable) */
+.user-icon .dropdown-menu li#usernameDisplay {
+    font-weight: 600;
+    cursor: default;
+    color: #d6c7c7;
+}
+/* Remove hover for username row */
+.user-icon .dropdown-menu li#usernameDisplay:hover {
+    background: none;
+    color: #d6c7c7;
+}
+/* Show dropdown when active */
+.user-icon.show-menu .dropdown-menu {display: block;}
 
 /* Hamburger */
 .hamburger {
