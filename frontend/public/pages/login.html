@@ -45,30 +45,33 @@
     <div class="login-bg">
         <div class="login-card">
             <h2 id="formTitle">Login</h2>
+
+            <!-- LOGIN / SIGNUP FORM -->
             <form id="authForm">
                 <input type="email" id="email" placeholder="Email" required>
                 <input type="password" id="password" placeholder="Password" required>
                 <input type="text" id="name" placeholder="Full Name (Sign Up)" style="display:none;" required>
                 <button type="submit" id="authBtn">Login</button>
             </form>
+
+            <!-- TOGGLE LINK -->
             <p class="toggle-text">
                 <span id="toggleText">Don't have an account?</span>
                 <a href="#" id="toggleLink">Sign Up</a>
             </p>
-            <p id="errorMessage"></p>
-            <!-- INITIALIZES GOOGLE LOGIN
-            This hidden div configures how Google Sign-In works
-            IMPORTANT: This does NOT display the button -->
-            <!-- Call Back Function that runs AFTER successful login -->
+
+            <!-- ERROR / STATUS MESSAGES -->
+            <p id="errorMessage" style="color:red;"></p>
+            <p id="status-message" style="color:blue;"></p>
+
+            <!-- GOOGLE LOGIN -->
             <div id="g_id_onload"
-                data-client_id="66529196302-bdmq9o6t5893pge560jhh1qscfsvleqg.apps.googleusercontent.com"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID"
                 data-context="signin"
                 data-ux_mode="popup"
-                data-callback="handleCredentialResponse"  
+                data-callback="handleCredentialResponse"
                 data-auto_prompt="false">
             </div>
-            <!-- THIS DISPLAYS THE GOOGLE SIGN-IN BUTTON
-            Google injects the button here automatically.-->
             <div class="g_id_signin"
                 data-type="standard"
                 data-shape="rectangular"
@@ -76,50 +79,10 @@
                 data-text="signin_with"
                 data-size="large">
             </div>
-            <p id="status-message" style="margin-top:20px; color:#444;"></p>
-
         </div>
     </div>
-    
-    <script>
-         /*This function is automatically called by Google
-          AFTER the user successfully signs in.*/
-        function handleCredentialResponse(response) {
-            const idToken = response.credential;
-            const statusMessage = document.getElementById('status-message');
-
-            console.log("--- Login Success ---");
-            console.log("Encoded JWT ID token:", idToken);
-            
-            // Update the UI
-            statusMessage.innerHTML = 'Successfully received token. <br><br> <strong>Token:</strong> ' + idToken;
-            statusMessage.style.color = 'green';
-            
-            // --- CRITICAL NEXT STEP (Backend Required) ---
-            // The token MUST be sent to your server for secure verification 
-            // and user session creation. The token alone is not secure 
-            // for authentication on the client side.
-            
-            /* // Example of sending the token to your server:
-            fetch('/api/google-auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: idToken }),
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log('Server response:', data);
-                // Handle successful login response (e.g., redirect user)
-            })
-            .catch(error => {
-                console.error('Login failed:', error);
-            });
-            */
-        }
-    </script>
 
     <script src="pages-js/login.js"></script>
+    
 </body>
 </html>

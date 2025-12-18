@@ -1,4 +1,5 @@
 /* 1. SELECT ELEMENTS */
+const previousPage = localStorage.getItem('previousPage') || document.referrer || 'index.html';
 const toggleLink = document.getElementById('toggleLink');       
 const toggleText = document.getElementById('toggleText');       
 const formTitle = document.getElementById('formTitle');         
@@ -8,11 +9,11 @@ const authForm = document.getElementById('authForm');
 const errorMessage = document.getElementById('errorMessage');   
 const statusMessage = document.getElementById('status-message'); 
 
-let isLogin = true; // true = login mode, false = signup mode
+let isLogin = true;
 
 /* 2. TOGGLE LOGIN / SIGNUP FORM */
 toggleLink.addEventListener('click', (e) => {
-    e.preventDefault();          
+    e.preventDefault();
     isLogin = !isLogin;
 
     if(isLogin){
@@ -44,14 +45,12 @@ authForm.addEventListener('submit', async (e) => {
         let res, data;
 
         if (isLogin) {
-            // LOGIN
             res = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
         } else {
-            // SIGNUP (public route)
             res = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -68,9 +67,11 @@ authForm.addEventListener('submit', async (e) => {
                 alert('Login successful!');
             } else {
                 alert('Sign Up successful! Please login.');
-                toggleLink.click(); // switch to login
+                toggleLink.click();
+                return;
             }
-            window.location.href = 'index.html';
+            // Redirect to previous page
+            window.location.href = previousPage;
         } else {
             errorMessage.textContent = data.error || 'Something went wrong';
         }
@@ -100,7 +101,7 @@ function handleCredentialResponse(response) {
             localStorage.setItem('user', JSON.stringify(data.user));
             statusMessage.innerHTML = 'Google login successful!';
             statusMessage.style.color = 'green';
-            window.location.href = 'index.html';
+            window.location.href = previousPage; // redirect properly
         } else {
             statusMessage.innerHTML = data.error || 'Google login failed';
             statusMessage.style.color = 'red';
