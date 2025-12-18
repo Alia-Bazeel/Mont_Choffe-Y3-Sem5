@@ -24,13 +24,41 @@
     font-size: 2rem !important; /* bigger icons */
     transition: all 0.3s ease;
 }
+.user-icon .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    color: #4B2E2E;
+    border-radius: 8px;
+    min-width: 180px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    z-index: 100;
+}
+/* Make dropdown appear on hover */
+.user-icon:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Add top margin only when header is NOT shrunk */
 header:not(.shrink) .user-icon i,
 header:not(.shrink) .header-cart {
     margin-top: 22px !important; /* applies only before scroll */
 }
 /* Shrink header: hide user icon */
-header.shrink .user-icon {display: none !important;}
+header.shrink .user-icon {
+    display: flex !important;
+    position: absolute;
+    top: 50%;
+    right: 100px; /* adjust gap from hamburger */
+    transform: translateY(-50%);
+}
 /* Shrink header: move cart next to hamburger & reduce size slightly */
 header.shrink .header-cart {
     position: absolute;
@@ -284,6 +312,8 @@ header.shrink .header-cart {
     .products-hero {height: 35vh;}
     
     .cart-panel {width: 80%;}
+    
+    .user-icon:hover .dropdown-menu { display: none; }
 }
 
 @media (max-width: 480px) {
