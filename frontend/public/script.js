@@ -169,7 +169,7 @@ if (searchInput && searchBtn) {
 }
 
 /* ------------------------------
-    6. USER ICON DROPDOWN + AUTH STATE
+    6. USER ICON DROPDOWN + AUTH STATE (GLOBAL)
 ------------------------------ */
 
 // Select dropdown elements
@@ -185,21 +185,25 @@ const deleteAccBtn = document.getElementById('deleteAccBtn');
 // Safety check (prevents errors on pages without user icon)
 if (userIcon && userToggle && userMenu) {
 
-    // Get username from localStorage (set during login/signup)
-    let username = localStorage.getItem('username');
+    // Get logged-in user object from localStorage
+    function getLoggedInUser() {
+        const userJSON = localStorage.getItem('loggedInUser');
+        return userJSON ? JSON.parse(userJSON) : null;
+    }
 
     // Update dropdown UI based on login state
     function updateUserMenu() {
-        if (username) {
-            usernameDisplay.textContent = `Hello, ${username}`;
-            if(signInLink) signInLink.parentElement.style.display = 'none';
-            if(logoutBtn) logoutBtn.parentElement.style.display = 'block';
-            if(deleteAccBtn) deleteAccBtn.parentElement.style.display = 'block';
+        const user = getLoggedInUser();
+        if (user && user.name) {
+            usernameDisplay.textContent = `Hello, ${user.name}`;
+            if(signInLink) signInLink.style.display = 'none';
+            if(logoutBtn) logoutBtn.style.display = 'block';
+            if(deleteAccBtn) deleteAccBtn.style.display = 'block';
         } else {
             usernameDisplay.textContent = 'Hello, Guest';
-            if(signInLink) signInLink.parentElement.style.display = 'block';
-            if(logoutBtn) logoutBtn.parentElement.style.display = 'none';
-            if(deleteAccBtn) deleteAccBtn.parentElement.style.display = 'none';
+            if(signInLink) signInLink.style.display = 'block';
+            if(logoutBtn) logoutBtn.style.display = 'none';
+            if(deleteAccBtn) deleteAccBtn.style.display = 'none';
         }
     }
 
@@ -214,8 +218,7 @@ if (userIcon && userToggle && userMenu) {
 
     // Logout logic
     logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('username');
-        username = null;
+        localStorage.removeItem('loggedInUser');
         updateUserMenu();
         userIcon.classList.remove('show-menu');
     });
@@ -223,8 +226,7 @@ if (userIcon && userToggle && userMenu) {
     // Delete account logic (frontend simulation)
     deleteAccBtn.addEventListener('click', () => {
         if (confirm('Are you sure you want to delete your account?')) {
-            localStorage.removeItem('username');
-            username = null;
+            localStorage.removeItem('loggedInUser');
             updateUserMenu();
             userIcon.classList.remove('show-menu');
             alert('Account deleted successfully!');
@@ -238,4 +240,3 @@ if (userIcon && userToggle && userMenu) {
         }
     });
 }
-
