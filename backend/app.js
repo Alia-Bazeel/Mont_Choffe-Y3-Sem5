@@ -20,7 +20,7 @@ app.use('/admin', express.static(path.join(__dirname, 'admin')));
 /* DATABASE CONNECTION */
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected (Mont Choffe)'))
+    .then(() => console.log('MongoDB connected to LIYUs Mont Choffe'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 /* ROUTES */

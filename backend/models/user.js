@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt'); // or 'bcryptjs'
+const bcrypt = require('bcryptjs');
 
 /* USER SCHEMA */
 

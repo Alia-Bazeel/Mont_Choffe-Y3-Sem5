@@ -1,4 +1,5 @@
 /* 1. SELECT ELEMENTS */
+const BACKEND_URL = 'http://localhost:3000';
 const toggleLink = document.getElementById('toggleLink');       
 const toggleText = document.getElementById('toggleText');       
 const formTitle = document.getElementById('formTitle');         
@@ -48,16 +49,16 @@ authForm.addEventListener('submit', async (e) => {
         let res, data;
 
         if (isLogin) {
-            res = await fetch('/api/users/login', {
+            res = await fetch(BACKEND_URL + '/api/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
         } else {
-            res = await fetch('/api/users/signup', {
+            res = await fetch(BACKEND_URL + '/api/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({name, email, password})
             });
         }
 
@@ -92,7 +93,7 @@ function handleCredentialResponse(response) {
     statusMessage.innerHTML = 'Verifying Google token...';
     statusMessage.style.color = 'blue';
 
-    fetch('/api/users/google-auth', {
+    fetch(BACKEND_URL + '/api/users/google-auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: idToken })
