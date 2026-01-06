@@ -1,199 +1,358 @@
-// ================================
-// CHECKOUT PAGE SCRIPT (checkout.js)
-// ================================
-
+// Wait for DOM to load
 document.addEventListener("DOMContentLoaded", () => {
-
+    
+    // Select elements
     const orderSection = document.getElementById("orderSection");
+    
+    // Get cart from localStorage
     const cart = JSON.parse(localStorage.getItem("montCart")) || [];
-
-    // -----------------------------
-    // LOGIN CHECK
-    // -----------------------------
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userData = localStorage.getItem("user");
+    const user = userData ? JSON.parse(userData) : null;
+    
+    /* =========================================
+        CHECK LOGIN STATUS
+    ========================================== */
     if (!user) {
-        window.location.href = `login.html?redirect=${encodeURIComponent(window.location.href)}`;
+        // Redirect to login
+        const currentPath = window.location.pathname;
+        window.location.href = `login.html?redirect=${encodeURIComponent(currentPath)}`;
         return;
     }
-
-    // -----------------------------
-    // RENDER CHECKOUT
-    // -----------------------------
-    function renderCheckout() {
-
+    
+    /* =========================================
+        RENDER ORDER SUMMARY
+    ========================================== */
+    function renderOrderSummary() {
         if (!cart.length) {
             orderSection.innerHTML = `
-                <div class="empty-note">
-                    <p>Your cart is empty.</p>
-                    <p><a href="products.html">Go to Products</a></p>
-                </div>`;
+                <div class="empty-cart">
+                    <h3>Your cart is empty</h3>
+                    <p>Add some products to your cart first!</p>
+                    <a href="products.html" class="back-to-shop">← Back to Products</a>
+                </div>
+            `;
             return;
         }
-
+        
+        // Calculate totals
         let subtotal = 0;
-
-        const itemsHTML = cart.map(item => {
+        cart.forEach(item => {
             subtotal += item.price * item.qty;
-            return `
-                <li>
-                    <div>
-                        <strong>${item.name}</strong><br>
-                        Qty: ${item.qty}
-                    </div>
-                    <div>${(item.price * item.qty).toFixed(2)} د.إ</div>
-                </li>`;
-        }).join("");
-
-        const tax = subtotal * 0.05;
-        const total = subtotal + tax;
-
+        });
+        
+        const tax = subtotal * 0.05; // 5% tax
+        const shipping = subtotal > 200 ? 0 : 25; // Free shipping over 200 AED
+        const total = subtotal + tax + shipping;
+        
+        // Create order items HTML
+        const itemsHTML = cart.map(item => `
+            <li class="order-item">
+                <span class="item-name">${item.name} × ${item.qty}</span>
+                <span class="item-price">${(item.price * item.qty).toFixed(2)} د.إ</span>
+            </li>
+        `).join("");
+        
+        // Render complete order summary
         orderSection.innerHTML = `
-            <ul class="order-items">${itemsHTML}</ul>
-
-            <div class="customer-box">
-                <h2>Customer Details</h2>
-
-                <div class="form-row">
-                    <input type="text" id="custName" placeholder="Full Name" value="${user.name || ''}">
-                    <input type="tel" id="custPhone" placeholder="Phone Number">
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                
+                <div class="customer-info">
+                    <h3>Customer Information</h3>
+                    <p><strong>Name:</strong> ${user.name || 'Not provided'}</p>
+                    <p><strong>Email:</strong> ${user.email || 'Not provided'}</p>
+                    
+                    <div class="address-form">
+                        <h4>Shipping Address</h4>
+                        <input type="text" id="shippingName" placeholder="Full Name" value="${user.name || ''}">
+                        <input type="tel" id="shippingPhone" placeholder="Phone Number" required>
+                        <textarea id="shippingAddress" placeholder="Full Address" rows="3" required></textarea>
+                        <input type="text" id="shippingCity" placeholder="City" required>
+                        <input type="text" id="shippingCountry" placeholder="Country" value="UAE" required>
+                    </div>
                 </div>
-
-                <input type="email" id="custEmail" placeholder="Email" style="margin-top:10px;width:100%;" value="${user.email || ''}">
-
-                <div class="address-choice">
-                    <label>
-                        <input type="radio" name="addressType" value="auto" checked>
-                        Use my current location
-                    </label>
-                    <label>
-                        <input type="radio" name="addressType" value="manual">
-                        Enter manually
-                    </label>
+                
+                <div class="order-items">
+                    <h3>Order Items</h3>
+                    <ul>${itemsHTML}</ul>
                 </div>
-
-                <button id="detectLocationBtn" class="loc-btn">Detect My Location</button>
-
-                <textarea id="autoAddress" placeholder="Detected address will appear here" readonly></textarea>
-
-                <div id="mapPreview" style="display:none;margin-top:12px;border-radius:10px;overflow:hidden;border:1px solid #ddd;">
-                    <iframe id="mapFrame" width="100%" height="180" style="border:0" loading="lazy"></iframe>
+                
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>${subtotal.toFixed(2)} د.إ</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax (5%)</span>
+                        <span>${tax.toFixed(2)} د.إ</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping</span>
+                        <span>${shipping === 0 ? 'FREE' : shipping.toFixed(2) + ' د.إ'}</span>
+                    </div>
+                    <div class="total-row total">
+                        <span>Total</span>
+                        <span>${total.toFixed(2)} د.إ</span>
+                    </div>
                 </div>
-
-                <div id="manualAddress" style="display:none;">
-                    <textarea id="manualAddrText" placeholder="Enter delivery address"></textarea>
+                
+                <div class="payment-methods">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label>
+                            <input type="radio" name="payment" value="cash" checked>
+                            Cash on Delivery
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="card">
+                            Credit/Debit Card
+                        </label>
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <div class="bill-row"><span>Subtotal</span><span>${subtotal.toFixed(2)} د.إ</span></div>
-                <div class="bill-row"><span>Tax (5%)</span><span>${tax.toFixed(2)} د.إ</span></div>
-                <div class="bill-row"><span>Total</span><span>${total.toFixed(2)} د.إ</span></div>
-
-                <button id="placeOrderBtn" class="place-order">Place Order</button>
+                
+                <button id="confirmOrderBtn" class="confirm-order-btn">
+                    Confirm Order
+                </button>
+                
+                <a href="products.html" class="back-to-shop">← Continue Shopping</a>
             </div>
         `;
+        
+        // Add event listener to confirm button
+        const confirmBtn = document.getElementById("confirmOrderBtn");
+        if (confirmBtn) {
+            confirmBtn.addEventListener("click", processOrder);
+        }
     }
-
-    // -----------------------------
-    // EVENT DELEGATION
-    // -----------------------------
-    orderSection.addEventListener("click", (e) => {
-
-        if (e.target.id === "placeOrderBtn") {
-            const name = document.getElementById("custName").value.trim();
-            const phone = document.getElementById("custPhone").value.trim();
-
-            if (!name || !phone) {
-                alert("Please enter name and phone number.");
-                return;
+    
+    /* =========================================
+        PROCESS ORDER
+    ========================================== */
+    async function processOrder() {
+        // Get form values
+        const shippingName = document.getElementById("shippingName")?.value.trim();
+        const shippingPhone = document.getElementById("shippingPhone")?.value.trim();
+        const shippingAddress = document.getElementById("shippingAddress")?.value.trim();
+        const shippingCity = document.getElementById("shippingCity")?.value.trim();
+        const shippingCountry = document.getElementById("shippingCountry")?.value.trim();
+        const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+        
+        // Validate shipping info
+        if (!shippingName || !shippingPhone || !shippingAddress || !shippingCity || !shippingCountry) {
+            alert("Please fill in all shipping information.");
+            return;
+        }
+        
+        // Calculate totals again
+        let subtotal = 0;
+        cart.forEach(item => {
+            subtotal += item.price * item.qty;
+        });
+        
+        const tax = subtotal * 0.05;
+        const shipping = subtotal > 200 ? 0 : 25;
+        const total = subtotal + tax + shipping;
+        
+        try {
+            // Prepare order data
+            const orderData = {
+                items: cart.map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.qty
+                })),
+                totalAmount: total,
+                shippingAddress: {
+                    name: shippingName,
+                    phone: shippingPhone,
+                    email: user.email,
+                    address: shippingAddress,
+                    city: shippingCity,
+                    country: shippingCountry
+                },
+                paymentMethod: paymentMethod || 'cash'
+            };
+            
+            // Show loading
+            const confirmBtn = document.getElementById("confirmOrderBtn");
+            if (confirmBtn) {
+                confirmBtn.textContent = "Processing...";
+                confirmBtn.disabled = true;
             }
-
+            
+            // In a real app, you would call API here:
+            // const result = await API.createOrder(orderData);
+            
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Clear cart
             localStorage.removeItem("montCart");
-
+            
+            // Show success message
             orderSection.innerHTML = `
-                <div style="text-align:center;padding:25px;">
-                    <h2>Order Placed Successfully</h2>
-                    <p>We will contact you shortly.</p>
-                    <a href="products.html">Continue Shopping</a>
-                </div>`;
-
-            emailjs.send("SERVICE_ID", "TEMPLATE_ID", {
-                customer_name: name,
-                customer_phone: phone,
-                customer_email: document.getElementById("custEmail").value,
-                order_total: total.toFixed(2),
-                delivery_address: selectedAddress
-            });
-        }
-
-        if (e.target.id === "detectLocationBtn") {
-
-            const autoBox = document.getElementById("autoAddress");
-            const mapPreview = document.getElementById("mapPreview");
-            const mapFrame = document.getElementById("mapFrame");
-
-            autoBox.value = "Requesting location permission...";
-
-            if (!navigator.geolocation) {
-                autoBox.value = "Geolocation not supported by browser.";
-                return;
+                <div class="order-success">
+                    <div class="success-icon">✓</div>
+                    <h2>Order Confirmed!</h2>
+                    <p>Thank you for your order, ${user.name}!</p>
+                    <p>Your order has been received and is being processed.</p>
+                    <p>Order Total: <strong>${total.toFixed(2)} د.إ</strong></p>
+                    <p>A confirmation email has been sent to ${user.email}</p>
+                    <div class="success-actions">
+                        <a href="products.html" class="btn">Continue Shopping</a>
+                        <a href="../index.html" class="btn">Back to Home</a>
+                    </div>
+                </div>
+            `;
+            
+        } catch (error) {
+            console.error("Order processing error:", error);
+            alert("Failed to process order. Please try again.");
+            
+            // Reset button
+            const confirmBtn = document.getElementById("confirmOrderBtn");
+            if (confirmBtn) {
+                confirmBtn.textContent = "Confirm Order";
+                confirmBtn.disabled = false;
             }
-
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-
-                    mapFrame.src =
-                        `https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.01}%2C${lat-0.01}%2C${lon+0.01}%2C${lat+0.01}&layer=mapnik&marker=${lat}%2C${lon}`;
-                    mapPreview.style.display = "block";
-
-                    autoBox.value = "Detecting address...";
-
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-                        .then(res => res.json())
-                        .then(data => {
-                            const addr = data.address || {};
-                            autoBox.value = `
-${addr.road || ""} ${addr.house_number || ""}
-${addr.suburb || ""}
-${addr.city || addr.town || addr.village || ""}
-${addr.state || ""}
-${addr.postcode || ""}
-${addr.country || ""}
-                            `.replace(/\n+/g, ", ").replace(/,\s*,/g, ",").trim();
-                        })
-                        .catch(() => {
-                            autoBox.value = "Unable to fetch address.";
-                        });
-                },
-                () => {
-                    autoBox.value = "Location permission denied.";
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
         }
-    });
-
-    // -----------------------------
-    // ADDRESS TOGGLE
-    // -----------------------------
-    orderSection.addEventListener("change", (e) => {
-        if (e.target.name === "addressType") {
-            document.getElementById("manualAddress").style.display =
-                e.target.value === "manual" ? "block" : "none";
-
-            document.getElementById("autoAddress").style.display =
-                e.target.value === "auto" ? "block" : "none";
-
-            document.getElementById("detectLocationBtn").style.display =
-                e.target.value === "auto" ? "inline-block" : "none";
+    }
+    
+    /* =========================================
+        INITIALIZE
+    ========================================== */
+    renderOrderSummary();
+    
+    // Add CSS for this page
+    const style = document.createElement('style');
+    style.textContent = `
+        .order-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-    });
-
-    // -----------------------------
-    // INIT
-    // -----------------------------
-    renderCheckout();
-
+        
+        .order-summary h2 {
+            color: #4B2E2E;
+            margin-bottom: 30px;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        
+        .customer-info, .order-items, .order-totals, .payment-methods {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .customer-info h3, .order-items h3, .payment-methods h3 {
+            color: #4B2E2E;
+            margin-bottom: 15px;
+        }
+        
+        .address-form {
+            margin-top: 20px;
+        }
+        
+        .address-form input,
+        .address-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        .order-items ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .total-row.total {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #4B2E2E;
+            border-bottom: none;
+        }
+        
+        .payment-options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .confirm-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: #C48A2A;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .confirm-order-btn:hover {
+            background: #a56e1f;
+        }
+        
+        .back-to-shop {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4B2E2E;
+            text-decoration: none;
+        }
+        
+        .empty-cart, .order-success {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .success-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .order-success h2 {
+            color: #4B2E2E;
+            margin-bottom: 20px;
+        }
+        
+        .success-actions {
+            margin-top: 30px;
+        }
+        
+        .success-actions .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: #4B2E2E;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    `;
+    
+    document.head.appendChild(style);
 });
