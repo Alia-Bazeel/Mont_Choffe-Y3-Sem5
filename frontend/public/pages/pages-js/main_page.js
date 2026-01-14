@@ -318,38 +318,28 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ------------------------------
     7. ADD TO CART ANIMATION (for index page)
 ------------------------------ */
-
-// Select all product card buttons on index page
 const cartButtons = document.querySelectorAll('.product-card button');
 
-// Loop through each button and add click event
 cartButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Get product info
         const productCard = button.closest('.product-card');
-        const productName = productCard.querySelector('h3').textContent;
-        const productPrice = productCard.querySelector('p').textContent;
-        
-        // Animation effect
+
+        // Here is where you replace the old product object
+        const product = {
+            _id: productCard.dataset.id,   // use data-id from HTML
+            name: productCard.querySelector('h3').textContent,
+            price: parseFloat(productCard.querySelector('.product-price').textContent),
+            qty: 1
+        };
+
+        // Then call your addToCart function
+        addToCart(product);
+
+        // Animation
         button.textContent = 'Added!';
         button.style.backgroundColor = '#FF6F61';
         button.style.color = '#fff';
-        
-        // Get existing cart or create new one
-        let cart = JSON.parse(localStorage.getItem('montCart')) || [];
-        
-        // Add item to cart
-        cart.push({
-            name: productName,
-            price: parseFloat(productPrice),
-            qty: 1,
-            timestamp: Date.now()
-        });
-        
-        // Save to localStorage
-        localStorage.setItem('montCart', JSON.stringify(cart));
-        
-        // Revert button after 1.5 seconds
+
         setTimeout(() => {
             button.textContent = 'Add to Cart';
             button.style.backgroundColor = '#D2691E';

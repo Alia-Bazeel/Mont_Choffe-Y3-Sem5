@@ -1,14 +1,14 @@
 // Wait for DOM to load
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // Select elements
     const orderSection = document.getElementById("orderSection");
-    
+
     // Get cart from localStorage
     const cart = JSON.parse(localStorage.getItem("montCart")) || [];
     const userData = localStorage.getItem("user");
     const user = userData ? JSON.parse(userData) : null;
-    
+
     /* =========================================
         CHECK LOGIN STATUS
     ========================================== */
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = `login.html?redirect=${encodeURIComponent(currentPath)}`;
         return;
     }
-    
+
     /* =========================================
         RENDER ORDER SUMMARY
     ========================================== */
@@ -33,17 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             return;
         }
-        
+
         // Calculate totals
         let subtotal = 0;
         cart.forEach(item => {
             subtotal += item.price * item.qty;
         });
-        
+
         const tax = subtotal * 0.05; // 5% tax
         const shipping = subtotal > 200 ? 0 : 25; // Free shipping over 200 AED
         const total = subtotal + tax + shipping;
-        
+
         // Create order items HTML
         const itemsHTML = cart.map(item => `
             <li class="order-item">
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="item-price">${(item.price * item.qty).toFixed(2)} د.إ</span>
             </li>
         `).join("");
-        
+
         // Render complete order summary
         orderSection.innerHTML = `
             <div class="order-summary">
@@ -117,14 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 <a href="products.html" class="back-to-shop">← Continue Shopping</a>
             </div>
         `;
-        
+
         // Add event listener to confirm button
         const confirmBtn = document.getElementById("confirmOrderBtn");
         if (confirmBtn) {
             confirmBtn.addEventListener("click", processOrder);
         }
     }
-    
+
+    const API_BASE_URL = "http://localhost:3000/api";
+
     /* =========================================
         PROCESS ORDER
     ========================================== */
@@ -136,27 +138,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const shippingCity = document.getElementById("shippingCity")?.value.trim();
         const shippingCountry = document.getElementById("shippingCountry")?.value.trim();
         const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
-        
+
         // Validate shipping info
         if (!shippingName || !shippingPhone || !shippingAddress || !shippingCity || !shippingCountry) {
             alert("Please fill in all shipping information.");
             return;
         }
-        
-        // Calculate totals again
+
+        // Calculate totals
         let subtotal = 0;
-        cart.forEach(item => {
-            subtotal += item.price * item.qty;
-        });
-        
+        cart.forEach(item => subtotal += item.price * item.qty);
         const tax = subtotal * 0.05;
         const shipping = subtotal > 200 ? 0 : 25;
         const total = subtotal + tax + shipping;
-        
+
         try {
             // Prepare order data
             const orderData = {
                 items: cart.map(item => ({
+                    productId: item._id || item.id, // fallback in case _id is missing
                     name: item.name,
                     price: item.price,
                     quantity: item.qty
@@ -172,43 +172,61 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 paymentMethod: paymentMethod || 'cash'
             };
-            
+
             // Show loading
             const confirmBtn = document.getElementById("confirmOrderBtn");
             if (confirmBtn) {
                 confirmBtn.textContent = "Processing...";
                 confirmBtn.disabled = true;
             }
-            
-            // In a real app, you would call API here:
-            // const result = await API.createOrder(orderData);
-            
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
+
+            // Get user token from localStorage
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error("You are not logged in. Please login again.");
+
+            // Send order to backend with JWT
+            const response = await fetch(`${API_BASE_URL}/orders`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}` // <-- now this is valid
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error("Unauthorized. Please login again.");
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || "Failed to place order.");
+                }
+            }
+
+
             // Clear cart
             localStorage.removeItem("montCart");
-            
+
             // Show success message
             orderSection.innerHTML = `
-                <div class="order-success">
-                    <div class="success-icon">✓</div>
-                    <h2>Order Confirmed!</h2>
-                    <p>Thank you for your order, ${user.name}!</p>
-                    <p>Your order has been received and is being processed.</p>
-                    <p>Order Total: <strong>${total.toFixed(2)} د.إ</strong></p>
-                    <p>A confirmation email has been sent to ${user.email}</p>
-                    <div class="success-actions">
-                        <a href="products.html" class="btn">Continue Shopping</a>
-                        <a href="../index.html" class="btn">Back to Home</a>
-                    </div>
+            <div class="order-success">
+                <div class="success-icon">✓</div>
+                <h2>Order Confirmed!</h2>
+                <p>Thank you for your order, ${user.name}!</p>
+                <p>Your order has been received and is being processed.</p>
+                <p>Order Total: <strong>${total.toFixed(2)} د.إ</strong></p>
+                <p>A confirmation email has been sent to ${user.email}</p>
+                <div class="success-actions">
+                    <a href="products.html" class="btn">Continue Shopping</a>
+                    <a href="../index.html" class="btn">Back to Home</a>
                 </div>
-            `;
-            
+            </div>
+        `;
+
         } catch (error) {
             console.error("Order processing error:", error);
-            alert("Failed to process order. Please try again.");
-            
+            alert(error.message);
+
             // Reset button
             const confirmBtn = document.getElementById("confirmOrderBtn");
             if (confirmBtn) {
@@ -217,12 +235,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-    
+
+
     /* =========================================
         INITIALIZE
     ========================================== */
     renderOrderSummary();
-    
+
     // Add CSS for this page
     const style = document.createElement('style');
     style.textContent = `
@@ -353,6 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
             border-radius: 5px;
         }
     `;
-    
+
     document.head.appendChild(style);
 });

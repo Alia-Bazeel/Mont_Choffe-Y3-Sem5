@@ -1,121 +1,208 @@
-// API Configuration
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = "http://localhost:3000/api";
 
-// Get auth token from localStorage
-function getToken() {
-    return localStorage.getItem('token');
+/* =========================================
+    USER AUTHENTICATION
+========================================= */
+
+// Register new user
+async function registerUser(name, email, password) {
+    try {
+        const res = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Registration failed');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        return data.user;
+    } catch (err) {
+        console.error('Register error:', err);
+        throw err;
+    }
 }
 
-// API Helper Functions
-const API = {
-    // Generic request function
-    async request(endpoint, method = 'GET', data = null) {
-        const url = `${API_BASE_URL}${endpoint}`;
-        const token = getToken();
-        
-        const options = {
-            method,
+// Login user
+async function loginUser(email, password) {
+    try {
+        const res = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Login failed');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        return data.user;
+    } catch (err) {
+        console.error('Login error:', err);
+        throw err;
+    }
+}
+
+// Logout
+function logoutUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+}
+
+/* =========================================
+    PRODUCTS
+========================================= */
+
+// Get all products
+async function getAllProducts() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/products`);
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.error('Fetch products error:', err);
+        throw err;
+    }
+}
+
+// Get single product by ID
+async function getProductById(id) {
+    try {
+        const res = await fetch(`${API_BASE_URL}/products/${id}`);
+        if (!res.ok) throw new Error('Product not found');
+        return await res.json();
+    } catch (err) {
+        console.error('Fetch product error:', err);
+        throw err;
+    }
+}
+
+/* =========================================
+    ORDERS
+========================================= */
+
+// Place a new order
+async function placeOrder(orderData) {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/orders`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            }
-        };
-
-        if (token) {
-            options.headers['Authorization'] = `Bearer ${token}`;
-        }
-
-        if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-            options.body = JSON.stringify(data);
-        }
-
-        try {
-            const response = await fetch(url, options);
-            
-            // Handle response
-            if (!response.ok) {
-                if (response.status === 401) {
-                    // Token expired
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('user');
-                    window.location.href = 'login.html';
-                }
-                const error = await response.json();
-                throw new Error(error.message || `Request failed with status ${response.status}`);
-            }
-            
-            return await response.json();
-        } catch (error) {
-            console.error('API Request Error:', error);
-            throw error;
-        }
-    },
-
-    // Auth endpoints
-    async login(email, password) {
-        return this.request('/auth/login', 'POST', { email, password });
-    },
-
-    async register(name, email, password) {
-        return this.request('/auth/register', 'POST', { name, email, password });
-    },
-
-    async getCurrentUser() {
-        return this.request('/auth/me');
-    },
-
-    logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '../index.html';
-    },
-
-    // Product endpoints
-    async getProducts(filters = {}) {
-        const params = new URLSearchParams(filters).toString();
-        return this.request(`/products?${params}`);
-    },
-
-    async getProductById(id) {
-        return this.request(`/products/${id}`);
-    },
-
-    // Order endpoints
-    async createOrder(orderData) {
-        return this.request('/orders', 'POST', orderData);
-    },
-
-    async getMyOrders() {
-        return this.request('/orders/my-orders');
-    },
-
-    // Contact endpoints
-    async sendContactMessage(contactData) {
-        return this.request('/contact', 'POST', contactData);
-    },
-
-    // Career endpoints (special handling for file upload)
-    async submitCareerApplication(formData) {
-        const token = getToken();
-        const headers = {};
-        
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-
-        const response = await fetch(`${API_BASE_URL}/career/apply`, {
-            method: 'POST',
-            headers,
-            body: formData
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(orderData)
         });
-
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || 'Application failed');
-        }
-
-        return await response.json();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to place order');
+        return data;
+    } catch (err) {
+        console.error('Place order error:', err);
+        throw err;
     }
-};
+}
 
-// Export API
-window.API = API;
+// Get orders of logged-in user
+async function getUserOrders() {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/orders`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.error('Fetch user orders error:', err);
+        throw err;
+    }
+}
+
+/* =========================================
+    ADMIN FUNCTIONS
+========================================= */
+
+// Get all users (admin only)
+async function getAllUsers() {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/users`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to fetch users');
+        return data;
+    } catch (err) {
+        console.error('Fetch users error:', err);
+        throw err;
+    }
+}
+
+// Admin: create product
+async function createProduct(productData) {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/products`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to create product');
+        return data;
+    } catch (err) {
+        console.error('Create product error:', err);
+        throw err;
+    }
+}
+
+// Admin: update product
+async function updateProduct(id, productData) {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to update product');
+        return data;
+    } catch (err) {
+        console.error('Update product error:', err);
+        throw err;
+    }
+}
+
+// Admin: delete product
+async function deleteProduct(id) {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('You must be logged in');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to delete product');
+        return data;
+    } catch (err) {
+        console.error('Delete product error:', err);
+        throw err;
+    }
+}
