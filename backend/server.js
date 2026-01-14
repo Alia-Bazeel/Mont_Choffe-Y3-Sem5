@@ -1,41 +1,55 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
-const mongoose = require('mongoose');
-
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+const DB_PATH = path.join(__dirname, 'data', 'products.json');
 
-// Routes
-const authRoute = require('./routes/authRoute');
-const productRoute = require('./routes/productRoute');
-const usersRoute = require('./routes/usersRoute');
-const ordersRoute = require('./routes/ordersRoute');
+// Helper to read/write JSON "Database"
+const getData = () => JSON.parse(fs.readFileSync(DB_PATH));
+const saveData = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 
-app.use('/api/auth', authRoute);
-app.use('/api/products', productRoute);
-app.use('/api/users', usersRoute);
-app.use('/api/orders', ordersRoute);
+// --- CRUD ENDPOINTS ---
+
+// 1. READ: Get all products
+app.get('/api/products', (req, res) => {
+    res.json(getData());
+});
+
+// 2. CREATE: Add new product (Admin)
+app.post('/api/products', (req, res) => {
+    const products = getData();
+    const newProduct = { id: Date.now(), ...req.body };
+    products.push(newProduct);
+    saveData(products);
+    res.status(201).json(newProduct);
+});
+
+// 3. UPDATE: Edit product (Admin)
+app.put('/api/products/:id', (req, res) => {
+    let products = getData();
+    const index = products.findIndex(p => p.id == req.params.id);
+    if (index === -1) return res.status(404).send('Not found');
+    
+    products[index] = { ...products[index], ...req.body };
+    saveData(products);
+    res.json(products[index]);
+});
+
+// 4. DELETE: Remove product (Admin)
+app.delete('/api/products/:id', (req, res) => {
+    let products = getData();
+    products = products.filter(p => p.id != req.params.id);
+    saveData(products);
+    res.status(204).send();
+});
 
 // Health check
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Backend running' });
-});
+app.get('/api/health', (req, res) => res.json({ status: "running" }));
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, '../frontend/public')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
-});
-
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
