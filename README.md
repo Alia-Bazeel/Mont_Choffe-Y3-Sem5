@@ -1,34 +1,31 @@
 # Mont_Choffe-Y3-Sem5
 
 MONT_CHOFFE-Y3-SEM5/ 
-├─ backend/
-│   ├── config/ 
-│        ├── db.js 
-│   ├── middleware/ 
-│        ├── auth.js 
-│        ├── admin.js 
+├─ backend/  
+│   ├── controllers/ 
+│        ├── authController.js 
+│        ├── productsController.js
+│   ├── data/ 
+│        ├── users.json 
+│        ├── products.json
+│   ├── middleware/
+│        ├── verifyAdmin.js
+│        ├── verifyToken.js
 │   ├── models/ 
-│        ├── contact_models.js 
-│        ├── order_models.js 
-│        ├── product_models.js 
-│        ├── user.js 
+│        ├── orderModel.js 
+│        ├── productModel.js 
+│        ├── userModel.js 
 │   ├── node_modules/ 
 │   ├── routes/ 
-│        ├── auth_routes.js 
-│        ├── career_routes.js 
-│        ├── contact_routes.js  
-│        ├── orders_routes.js 
-│        ├── product_routes.js 
-│        ├── users.js
-│   ├── uploads/ 
-│        ├── resumes/ 
-│        ├── .log
+│        ├── authRoute.js   
+│        ├── productRoute.js 
+│        ├── ordersRoute.js
+│        ├── usersRoute.js
 │   ├── utils/ 
-│        ├── helpers.js 
+│        ├── authMiddleware.js
 │   ├── .env 
 │   ├── package-lock.json 
-│   ├── package.json
-│   ├── seed.js 
+│   ├── package.json 
 │   ├── server.js 
 │
 ├─ frontend/
@@ -49,7 +46,6 @@ MONT_CHOFFE-Y3-SEM5/
 │                   ├── pages-css/
 │                         ├── css-bg/
 │                         ├── about_us.css
-│                         ├── admin.css
 │                         ├── career.css
 │                         ├── contact_us.css
 │                         ├── find_us.css
@@ -62,7 +58,6 @@ MONT_CHOFFE-Y3-SEM5/
 │                         ├── products/
 │                         ├── recipes/
 │                   ├── pages-js/
-│                         ├── admin.js
 │                         ├── api.js
 │                         ├── career.js
 │                         ├── contact_us.js
@@ -74,7 +69,6 @@ MONT_CHOFFE-Y3-SEM5/
 │                         ├── recipes.js
 │                   ├── pages-json/
 │                   ├── about_us.html
-│                   ├── admin.html
 │                   ├── career.html
 │                   ├── contact_us.html
 │                   ├── findUs.html
