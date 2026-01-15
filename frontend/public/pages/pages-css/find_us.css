@@ -82,9 +82,88 @@
 }
 
 /* Responsive */
-@media(max-width: 768px){
+
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
     .find-us-main {
-        margin-top: 150px;
+        max-width: 1350px;
+    }
+    .intro h2 { font-size: 3rem; }
+}
+
+/* --- TIER 2: Extra Large (Desktops: 1200px - 1399px) --- */
+@media (max-width: 1399px) {
+    .find-us-main {
+        max-width: 1100px;
+    }
+}
+
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (max-width: 1199px) {
+    .find-us-main {
+        margin-top: 140px;
+    }
+    .store-list {
+        gap: 15px;
+    }
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (max-width: 991px) {
+    .find-us-main {
+        margin-top: 160px; /* More space for the mobile header/search */
+    }
+    .intro h2 { font-size: 2rem; }
+    #storeMap {
+        height: 350px; /* Shorter map for better scrolling on tablets */
+    }
+    .store-list {
+        grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+    }
+}
+
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (max-width: 767px) {
+    .find-us-main {
+        margin-top: 180px;
         padding: 0 15px;
+    }
+    .intro h2 { font-size: 1.8rem; }
+    .intro p { font-size: 0.9rem; }
+    
+    #storeMap {
+        height: 300px;
+    }
+    .store-list {
+        grid-template-columns: 1fr; /* Stack store cards vertically */
+    }
+    .store-filter select {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 10px;
+    }
+    .store-filter label {
+        display: block; /* Label on its own line */
+    }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .find-us-main {
+        margin-top: 200px; /* Maximum spacing for the expanded search/hamburger header */
+    }
+    .intro h2 { font-size: 1.5rem; }
+    
+    #storeMap {
+        height: 250px; /* Compact map for small phones */
+    }
+    .store-card {
+        padding: 15px;
+    }
+    .store-card h3 {
+        font-size: 1.1rem;
+    }
+    .store-card p {
+        font-size: 0.85rem;
     }
 }

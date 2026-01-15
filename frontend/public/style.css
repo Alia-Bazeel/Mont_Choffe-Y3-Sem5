@@ -664,15 +664,10 @@ footer {
 
 /* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
 @media (max-width: 1199px) {
-    .main-nav-links {
-        gap: 15px;
-    }
-    .search-bar {
-        width: 55%;
-    }
-    .informal-footer {
-        padding: 80px 80px;
-    }
+    .brand-name { display: none; }
+    .search-bar { width: 55%; }
+    .main-nav-links { gap: 15px; }
+    .informal-footer { padding: 80px 80px; }
     .product-grid {
         gap: 20px;
         padding: 0 20px;
@@ -729,6 +724,7 @@ footer {
     /* Header layout changes */
     .header-top { padding: 5px 15px; }
     .logo { width: 110px; }
+    .brand-name { display: none;}
     .more-links { display: none; } /* Hide secondary links on mobile */
     
     .search-container {

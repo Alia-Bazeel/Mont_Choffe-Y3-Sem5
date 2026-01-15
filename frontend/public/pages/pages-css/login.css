@@ -51,7 +51,7 @@ body, html {
     background: linear-gradient(45deg, #D2691E, #FF6F61); /* chocolate-gold gradient */
     border: none;                             /* no border */
     border-radius: 25px;                      /* rounded corners */
-    color: white;                             /* button text color */
+    color: white;                           /* button text color */
     font-weight: 600;                         /* slightly bold */
     font-size: 1rem;                          /* readable font */
     cursor: pointer;                          /* pointer cursor */
@@ -59,7 +59,7 @@ body, html {
 }
 
 .login-card button:hover {
-    transform: translateY(-3px);              /* lift button on hover */
+    transform: translateY(-3px);               /* lift button on hover */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);  /* shadow effect */
 }
 
@@ -89,9 +89,81 @@ body, html {
 }
 
 /* --- RESPONSIVE --- */
-@media(max-width: 480px){
+
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
     .login-card {
-        width: 90%;                              /* almost full width on small screens */
-        padding: 30px 20px;                      /* reduce padding for mobile */
+        width: 400px; /* Scaling up slightly for very large screens */
+        padding: 50px 40px;
+    }
+    .login-card h2 {
+        font-size: 2.4rem;
+    }
+}
+
+/* --- TIER 2: Extra Large (Desktops: 1200px - 1399px) --- */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    /* Default desktop styles apply well here */
+}
+
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (min-width: 992px) and (max-width: 1199px) {
+    /* Default desktop styles apply well here */
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (min-width: 768px) and (max-width: 991px) {
+    .login-card {
+        width: 380px;
+    }
+}
+
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (min-width: 576px) and (max-width: 767px) {
+    .login-card {
+        width: 85%;
+        max-width: 350px;
+        padding: 35px 25px;
+    }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .login-bg {
+        padding: 20px; /* To ensure card doesn't touch screen edges */
+    }
+    
+    .login-card {
+        width: 100%;
+        max-width: 320px;
+        padding: 30px 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .login-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .login-card input {
+        padding: 10px 15px;
+        margin: 8px 0;
+        font-size: 16px; /* Standard to prevent iOS auto-zoom on focus */
+    }
+
+    .login-card button {
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+
+    .toggle-text {
+        font-size: 0.85rem;
+    }
+    
+    /* Adjust Google Sign-In button for small widths */
+    .g_id_signin {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
     }
 }

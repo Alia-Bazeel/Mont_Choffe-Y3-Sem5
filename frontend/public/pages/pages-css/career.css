@@ -188,12 +188,87 @@
 }
 
 /* ---------------------- RESPONSIVE ---------------------- */
-@media (max-width: 768px) {
-    .job-cards-container,
-    .perks-container {
+
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
+    .hero-overlay h1 { font-size: 4.2rem; }
+    .culture-section, .jobs-section, .application-form-section, .perks-section {
+        padding: 100px 15%;
+    }
+}
+
+/* --- TIER 2: Extra Large (Desktops: 1200px - 1399px) --- */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .culture-section, .jobs-section, .application-form-section, .perks-section {
+        padding: 80px 12%;
+    }
+}
+
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .hero-overlay h1 { font-size: 3rem; }
+    .job-cards-container { gap: 20px; }
+    .job-card { width: 30%; } /* Keeps 3-column layout stable */
+    .perk-card { width: 200px; }
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-careers { height: 50vh; }
+    .hero-overlay h1 { font-size: 2.8rem; }
+    .hero-overlay p { font-size: 1.2rem; }
+
+    /* Job cards shift to 2-per-row */
+    .job-card { width: 45%; }
+    
+    /* Perks shift to 2-per-row */
+    .perk-card { width: 45%; }
+
+    .application-form-section form { max-width: 90%; }
+}
+
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (min-width: 576px) and (max-width: 767px) {
+    .hero-careers { height: 45vh; }
+    .hero-overlay h1 { font-size: 2.2rem; }
+    .hero-overlay p { font-size: 1.1rem; }
+
+    /* Stack everything vertically */
+    .job-cards-container, .perks-container {
         flex-direction: column;
         align-items: center;
     }
-    .hero-overlay h1 {font-size: 2.5rem;}
-    .hero-overlay p {font-size: 1.2rem;}
+    .job-card, .perk-card { width: 100%; max-width: 400px; }
+    
+    .culture-section, .jobs-section, .application-form-section, .perks-section {
+        padding: 60px 5%;
+    }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .hero-careers { height: 40vh; }
+    .hero-overlay h1 { font-size: 1.8rem; }
+    .hero-overlay p { font-size: 1rem; }
+
+    .culture-section h2, .jobs-section h2, .application-form-section h2, .perks-section h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Stack cards */
+    .job-card, .perk-card {
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    /* Form input adjustments for mobile thumbs */
+    .form-group input, .form-group textarea {
+        padding: 15px;
+        font-size: 16px; /* Prevents auto-zoom on iOS */
+    }
+
+    .submit-btn {
+        width: 100%;
+        border-radius: 10px;
+    }
 }
