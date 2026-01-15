@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | Mont Choffe</title>
+    <link rel="stylesheet" href="pages-css/products.css">
+    <link rel="stylesheet" href="pages-css/main_page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .confirmation-wrap {
+            max-width: 800px;
+            margin: 150px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .confirmation-wrap h1 {
+            color: #4B2E2E;
+            margin-bottom: 15px;
+        }
+        .order-details {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .order-detail-row:last-child {
+            border-bottom: none;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .action-buttons a {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .action-buttons a:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: #C48A2A;
+            color: white;
+        }
+        .btn-secondary {
+            background: #4B2E2E;
+            color: white;
+        }
+        .btn-outline {
+            background: white;
+            color: #4B2E2E;
+            border: 2px solid #4B2E2E;
+        }
+    </style>
+</head>
+<body>
+    <!-- Same header as in purchase_bill.html -->
+    
+    <main>
+        <div class="confirmation-wrap">
+            <div class="success-icon">✓</div>
+            <h1>Order Confirmed!</h1>
+            <p>Thank you for your purchase. Your order has been successfully placed.</p>
+            
+            <div class="order-details">
+                <div class="order-detail-row">
+                    <strong>Order Number:</strong>
+                    <span id="orderNumber">Loading...</span>
+                </div>
+                <div class="order-detail-row">
+                    <strong>Order Date:</strong>
+                    <span id="orderDate">Loading...</span>
+                </div>
+                <div class="order-detail-row">
+                    <strong>Total Amount:</strong>
+                    <span id="orderTotal">Loading...</span>
+                </div>
+                <div class="order-detail-row">
+                    <strong>Status:</strong>
+                    <span id="orderStatus">Pending</span>
+                </div>
+                <div class="order-detail-row">
+                    <strong>Estimated Delivery:</strong>
+                    <span>2-4 Business Days</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="products.html" class="btn-primary">Continue Shopping</a>
+                <a href="/index.html" class="btn-secondary">Back to Home</a>
+                <a href="#" id="viewOrderDetails" class="btn-outline">View Order Details</a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Same footer as in purchase_bill.html -->
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderNumber = urlParams.get('orderNumber');
+            
+            if (orderNumber) {
+                document.getElementById('orderNumber').textContent = orderNumber;
+                
+                // Try to get order details from localStorage
+                const userOrders = JSON.parse(localStorage.getItem("userOrders") || "[]");
+                const latestOrder = userOrders.find(order => order.orderNumber === orderNumber) || 
+                                   userOrders[userOrders.length - 1];
+                
+                if (latestOrder) {
+                    document.getElementById('orderTotal').textContent = 
+                        latestOrder.totalAmount ? latestOrder.totalAmount.toFixed(2) + ' د.إ' : 'N/A';
+                    
+                    document.getElementById('orderDate').textContent = 
+                        latestOrder.createdAt ? new Date(latestOrder.createdAt).toLocaleDateString() : 
+                        new Date().toLocaleDateString();
+                }
+            }
+            
+            // View order details button
+            document.getElementById('viewOrderDetails').addEventListener('click', (e) => {
+                e.preventDefault();
+                const userOrders = JSON.parse(localStorage.getItem("userOrders") || "[]");
+                if (userOrders.length > 0) {
+                    const latestOrder = userOrders[userOrders.length - 1];
+                    alert(`Order Details:\n\n` +
+                          `Order Number: ${latestOrder.orderNumber || 'N/A'}\n` +
+                          `Items: ${latestOrder.items?.map(item => `${item.name} x${item.quantity}`).join(', ')}\n` +
+                          `Total: ${latestOrder.totalAmount?.toFixed(2)} د.إ\n` +
+                          `Delivery: ${latestOrder.deliveryInfo?.address}, ${latestOrder.deliveryInfo?.city}`);
+                } else {
+                    alert("No order details found in local storage.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
