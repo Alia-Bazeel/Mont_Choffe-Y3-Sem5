@@ -301,15 +301,63 @@ footer {
 }
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .main-nav-links {display: none;} /* hide nav links */
-    .hamburger {display: flex;}      /* show hamburger */
-    .search-bar {width: 70%;}
-    .more-links {gap: 15px;}
+
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
+    .header-top, .about-container {
+        max-width: 1400px;
+    }
+    .hero-content h1 {
+        font-size: 4rem;
+    }
 }
 
-@media (max-width: 480px) {
-    .logo { width: 60px; }
-    .search-bar { width: 85%; font-size: 0.9rem; }
-    .more-links { flex-direction: column; gap: 8px; }
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (max-width: 1199px) {
+    .main-nav-links {
+        gap: 15px;
+    }
+    .search-bar {
+        width: 55%;
+    }
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (max-width: 991px) {
+    /* Header Adjustments */
+    .brand-name { display: none;}
+    .main-nav-links { display: none; } 
+    .hamburger { display: flex; }
+    .more-links { gap: 15px; }
+    .search-bar { width: 50%; }
+}
+
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (max-width: 767px) {
+    /* Header layout changes */
+    .header-top { padding: 5px 15px; }
+    .logo { width: 110px; }
+    .more-links { display: none; } /* Hide secondary links on mobile */
+    
+    .search-container {
+        margin-top: 10px; /* Move search below header flow */
+        padding: 10px;
+    }
+    .search-bar { width: 90%; }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .logo { width: 90px; }
+    .brand-name { font-size: 1.2rem; }
+    
+    .search-bar { 
+        width: 100%; 
+        border-radius: 25px; 
+    }
+    .search-btn { 
+        padding: 8px 12px; 
+    }
+
+    footer { font-size: 0.85rem; }
 }

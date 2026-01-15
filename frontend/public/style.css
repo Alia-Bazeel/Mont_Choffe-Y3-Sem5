@@ -644,61 +644,145 @@ footer {
 }
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .main-nav-links {display: none;} /* hide nav links */
-    .hamburger {display: flex;}      /* show hamburger */
-    .search-bar {width: 70%;}
-    .more-links {gap: 15px;}
 
-    .hero {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; /* center for tablet */
-        text-align: center;
-        padding: 80px 20px;
-    }
-    .hero-content {
-        text-align: center; /* center text on mobile */
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
+    .header-top, .about-container {
+        max-width: 1400px;
     }
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 4rem;
     }
-    .hero-content p {
-        font-size: 1rem;
+}
+
+/* --- TIER 2: Extra Large (Desktops: 1200px - 1399px) --- */
+@media (max-width: 1399px) {
+    .informal-footer {
+        padding: 100px 150px; /* Reducing huge side padding */
+    }
+}
+
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (max-width: 1199px) {
+    .main-nav-links {
+        gap: 15px;
+    }
+    .search-bar {
+        width: 55%;
+    }
+    .informal-footer {
+        padding: 80px 80px;
+    }
+    .product-grid {
+        gap: 20px;
+        padding: 0 20px;
+    }
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (max-width: 991px) {
+    /* Header Adjustments */
+    .brand-name { display: none;}
+    .main-nav-links { display: none; } 
+    .hamburger { display: flex; }
+    .more-links { gap: 15px; }
+    .search-bar { width: 50%; }
+    
+    /* Hero Section - Center for Tablet */
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding: 150px 30px;
+    }
+    .hero-content {
+        text-align: center;
+        max-width: 100%;
+    }
+    .hero-content h1 {
+        font-size: 2.8rem;
     }
 
-    .view-all .btn {
-        padding: 8px 20px;   /* slightly smaller padding */
-        font-size: 0.95rem;  /* slightly smaller font */
+    /* Product Grid - 2 per row */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .about-section {padding: 70px 40px;}
+    /* About Us - Stacked */
     .about-container {
         flex-direction: column;
         text-align: center;
+        gap: 30px;
     }
-    .about-content {flex: 1 1 100%;}
     .about-content h2::after {
         left: 50%;
         transform: translateX(-50%);
     }
+
+    /* Footer */
+    .informal-footer {
+        padding: 80px 40px;
+    }
 }
 
-@media (max-width: 480px) {
-    .logo { width: 60px; }
-    .search-bar { width: 85%; font-size: 0.9rem; }
-    .more-links { flex-direction: column; gap: 8px; }
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (max-width: 767px) {
+    /* Header layout changes */
+    .header-top { padding: 5px 15px; }
+    .logo { width: 110px; }
+    .more-links { display: none; } /* Hide secondary links on mobile */
     
-    .hero-content h1 {font-size: 2rem;}
-    .hero-content p {font-size: 1rem;}
-    .cta-btn {
-        padding: 8px 18px;
-        font-size: 0.9rem;
+    .search-container {
+        margin-top: 10px; /* Move search below header flow */
+        padding: 10px;
     }
-    .hero-image img {border-radius: 8px;}
+    .search-bar { width: 90%; }
 
-    .view-all .btn {
-        padding: 6px 15px;   /* very small screen padding */
-        font-size: 0.9rem;   /* smaller font for readability */
+    /* Hero */
+    .hero-content h1 { font-size: 2.4rem; }
+    .hero-content p { font-size: 1.1rem; }
+
+    /* About Us */
+    .about-image img { max-width: 100%; }
+
+    /* Footer */
+    .informal-footer {
+        padding: 60px 20px;
     }
+    .informal-content h2 { font-size: 2rem; }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .logo { width: 90px; }
+    .brand-name { font-size: 1.2rem; }
+    
+    .search-bar { 
+        width: 100%; 
+        border-radius: 25px; 
+    }
+    .search-btn { 
+        padding: 8px 12px; 
+    }
+
+    /* Hero */
+    .hero { min-height: 60vh; padding: 100px 15px; }
+    .hero-content h1 { font-size: 2rem; }
+    .cta-btn { padding: 12px 25px; font-size: 1rem; }
+
+    /* Product Grid - 1 per row */
+    .product-grid {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+    }
+    .product-card img { height: 260px; }
+
+    /* Informal Contact */
+    .informal-footer {
+        padding: 50px 15px;
+        background-attachment: scroll; /* Smoother scrolling for mobile */
+    }
+    .informal-content p { font-size: 1rem; }
+    .social-icons img { width: 35px; height: 35px; }
+    
+    footer { font-size: 0.85rem; }
 }
