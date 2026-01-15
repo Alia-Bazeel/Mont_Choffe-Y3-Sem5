@@ -143,13 +143,112 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
+
+/* --- TIER 1: Extra Extra Large (Large Displays: ≥1400px) --- */
+@media (min-width: 1400px) {
     .recipe-collection {
-        grid-template-columns: 1fr 1fr;
+        max-width: 1400px;
+        grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+    }
+    .recipes-hero h2 { font-size: 3rem; }
+}
+
+/* --- TIER 2: Extra Large (Desktops: 1200px - 1399px) --- */
+@media (max-width: 1399px) {
+    .recipe-collection {
+        max-width: 1150px;
+        grid-template-columns: repeat(3, 1fr); /* 3 items per row */
     }
 }
-@media (max-width: 480px) {
+
+/* --- TIER 3: Large (Laptops/Small Desktops: 992px - 1199px) --- */
+@media (max-width: 1199px) {
+    .recipes-hero {
+        margin-top: 110px; /* Reduced to match smaller header height */
+        padding: 50px 20px;
+    }
+    .recipe-collection {
+        gap: 20px;
+        padding: 0 40px;
+    }
+}
+
+/* --- TIER 4: Medium (Tablets: 768px - 991px) --- */
+@media (max-width: 991px) {
+    .recipes-hero h2 { font-size: 1.8rem; }
+    
+    .recipe-collection {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+        padding: 0 30px;
+    }
+
+    /* Adjusting filters so they don't look cramped */
+    .recipe-filters {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}
+
+/* --- TIER 5: Small (Phones/Small Tablets: 576px - 767px) --- */
+@media (max-width: 767px) {
+    .recipes-hero {
+        margin-top: 100px; 
+        padding: 40px 15px;
+    }
+    .recipes-hero h2 { font-size: 1.6rem; }
+    .recipes-hero p { font-size: 0.9rem; }
+
+    .recipe-collection {
+        grid-template-columns: repeat(2, 1fr); /* Stay 2 columns until very small */
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .recipe-card h3 { font-size: 1.1rem; }
+    .recipe-card .products-used { font-size: 0.9rem; }
+
+    /* Make filter buttons slightly smaller to fit across */
+    .recipe-filters .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* --- TIER 6: Extra Small (Mobile: Up to 576px) --- */
+@media (max-width: 575px) {
+    .recipes-hero {
+        margin-top: 90px;
+        padding: 35px 10px;
+    }
+    .recipes-hero h2 { font-size: 1.4rem; }
+
+    /* Single column for mobile readability */
     .recipe-collection {
         grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .recipe-card {
+        max-width: 350px; /* Prevent cards from getting too wide on wide phones */
+        margin: 0 auto; 
+    }
+
+    /* Scrollable filters if they overflow */
+    .recipe-filters {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 10px 20px;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    }
+    
+    /* Hide scrollbar for aesthetics but keep functionality */
+    .recipe-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .modal-content {
+        padding: 20px 15px;
+        width: 95%;
     }
 }
