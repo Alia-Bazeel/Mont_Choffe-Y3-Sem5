@@ -20,64 +20,40 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cart stored in localStorage
     let cart = JSON.parse(localStorage.getItem("montCart")) || [];
     
-    /* =========================================
-        1) CATEGORY FILTER
+     /* =========================================
+        1) SEARCH FUNCTIONALITY
     ========================================== */
-    function initCategoryFilter() {
-        filterBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                filterBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                
-                const category = btn.dataset.filter;
-                filterProductsByCategory(category);
-            });
-        });
-    }
-    
-    function filterProductsByCategory(category) {
+    function applyFilters() {
+        const activeBtn = document.querySelector(".filter-btn.active");
+        const category = activeBtn ? activeBtn.dataset.filter : "all";
+        const query = headerSearch ? headerSearch.value.trim().toLowerCase() : "";
+
         const cards = document.querySelectorAll(".product-card");
+        let found = false;
+
         cards.forEach(card => {
             const cardCat = (card.dataset.category || "").toLowerCase();
-            
-            if (category === "all" || category === cardCat) {
-                card.style.display = "flex";
+            const name = (card.querySelector("h3")?.textContent || "").toLowerCase();
+            const desc = (card.querySelector(".product-desc")?.textContent || "").toLowerCase();
+
+            const matchCategory = category === "all" || category === cardCat;
+            const matchSearch = !query || name.includes(query) || desc.includes(query);
+
+            if (matchCategory && matchSearch) {
+                card.classList.remove("hidden");
+                found = true;
             } else {
-                card.style.display = "none";
+                card.classList.add("hidden");
             }
         });
-    }
-    
-    /* =========================================
-        2) SEARCH FUNCTIONALITY
-    ========================================== */
-    function initSearch() {
-        if (!headerSearch) return;
-        
-        function runSearch() {
-            const query = headerSearch.value.trim().toLowerCase();
-            const cards = document.querySelectorAll(".product-card");
-            let found = false;
-            
-            cards.forEach(card => {
-                const name = (card.querySelector("h3")?.textContent || "").toLowerCase();
-                const desc = (card.querySelector(".product-desc")?.textContent || "").toLowerCase();
-                
-                if (!query || name.includes(query) || desc.includes(query)) {
-                    card.style.display = "flex";
-                    found = true;
-                } else {
-                    card.style.display = "none";
-                }
-            });
             
             // Show "no results" message
             showNoResults(found, query);
         }
         
-        headerSearch.addEventListener("input", runSearch);
-        if (headerSearchBtn) headerSearchBtn.addEventListener("click", runSearch);
-    }
+        //headerSearch.addEventListener("input", runSearch);
+        //if (headerSearchBtn) headerSearchBtn.addEventListener("click", runSearch);
+    //}
     
     function showNoResults(found, query) {
         const existingMsg = document.querySelector(".no-results-message");
@@ -95,12 +71,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>Try a different search term.</p>
             `;
             
-            if (productsGrid) {
-                productsGrid.appendChild(message);
-            }
+            //if (productsGrid) {
+            //    productsGrid.appendChild(message);
+            //}
+            productsGrid.appendChild(msg);
         }
     }
     
+    /* =========================================
+       2) CATEGORY FILTER
+    ========================================== */
+    function initCategoryFilter() {
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                
+                const category = btn.dataset.filter;
+                filterProductsByCategory(category);
+            });
+        });
+    }
+   
+    function filterProductsByCategory(category) {
+        const cards = document.querySelectorAll(".product-card");
+        cards.forEach(card => {
+            const cardCat = (card.dataset.category || "").toLowerCase();
+            
+            if (category === "all" || category === cardCat) {
+                card.classList.remove("hidden");
+            } else {
+                card.classList.add("hidden");
+            }
+        });
+    }
+
+    /* ================= SEARCH ================= */
+    function initSearch() {
+        if (!headerSearch) return;
+        headerSearch.addEventListener("input", applyFilters);
+        if (headerSearchBtn) headerSearchBtn.addEventListener("click", applyFilters);
+    }
+   
     /* =========================================
         3) CART FUNCTIONALITY
     ========================================== */
@@ -119,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Animation
                 btn.textContent = "Added!";
-                btn.style.backgroundColor = "#4CAF50";
+                btn.style.backgroundColor = "#C48A2A";
                 
                 setTimeout(() => {
                     btn.textContent = "Add to Cart";
@@ -311,9 +323,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const name = (card.querySelector("h3")?.textContent || "").toLowerCase();
                     const desc = (card.querySelector(".product-desc")?.textContent || "").toLowerCase();
                     if (!query || name.includes(query) || desc.includes(query)) {
-                        card.style.display = "flex";
+                        card.classList.remove("hidden");
                     } else {
-                        card.style.display = "none";
+                        card.classList.add("hidden");
                     }
                 });
             };
