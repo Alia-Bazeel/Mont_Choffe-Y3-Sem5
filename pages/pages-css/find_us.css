@@ -80,6 +80,16 @@
     font-size: 0.95rem;
     color: #e6d3b3;
 }
+.view-on-map {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background-color: #c96c20;
+    color: #1c0e0e;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: transform 0.3s ease;
+}
 
 /* Responsive */
 
