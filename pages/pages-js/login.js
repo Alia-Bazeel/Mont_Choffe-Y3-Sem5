@@ -11,7 +11,7 @@ const passwordField = document.getElementById("password");
 const statusMessage = document.getElementById("status-message");
 const errorMessage = document.getElementById("errorMessage");
 
-/* 🔁 TOGGLE LOGIN / SIGNUP */
+/* TOGGLE LOGIN / SIGNUP */
 toggleLink.addEventListener("click", function (e) {
     e.preventDefault();
     isLogin = !isLogin;
@@ -34,7 +34,7 @@ toggleLink.addEventListener("click", function (e) {
     statusMessage.textContent = "";
 });
 
-/* 🧠 HANDLE FORM SUBMIT */
+/* HANDLE FORM SUBMIT */
 form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -79,7 +79,7 @@ form.addEventListener("submit", async function (e) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            statusMessage.textContent = "Login successful 🎉";
+            statusMessage.textContent = "Login successful";
 
             setTimeout(() => {
                 window.location.href = "../index.html";
@@ -112,7 +112,7 @@ form.addEventListener("submit", async function (e) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            statusMessage.textContent = "Signup successful 🎉";
+            statusMessage.textContent = "Signup successful";
 
             setTimeout(() => {
                 window.location.href = "../index.html";
